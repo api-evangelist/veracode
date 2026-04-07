@@ -7,8 +7,7 @@ type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-tags:
-  - API
+tags: []
 created: '2025-01-08'
 modified: '2026-03-16'
 url: >-
@@ -21,8 +20,7 @@ apis:
       This section describes the non-API user roles that your user account must
       have before you can use the APIs to automate specific tasks.
     humanURL: https://docs.veracode.com/r/c_API_roles_details
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: https://docs.veracode.com/r/c_API_roles_details
