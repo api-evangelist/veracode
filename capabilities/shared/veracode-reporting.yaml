@@ -1,0 +1,80 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veracode Reporting API"
+  description: "Generate asynchronous security reports for findings, scans, and audit events across the Veracode portfolio."
+  tags:
+    - Veracode
+    - Reporting
+    - Analytics
+    - Compliance
+    - Application Security
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VERACODE_API_ID: VERACODE_API_ID
+      VERACODE_API_KEY: VERACODE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: veracode-reporting
+      baseUri: https://api.veracode.com
+      description: "Veracode Reporting REST API"
+      authentication:
+        type: hmac
+        apiId: "{{VERACODE_API_ID}}"
+        apiKey: "{{VERACODE_API_KEY}}"
+      resources:
+        - name: reports
+          path: /appsec/v1/analytics/report
+          description: "Asynchronous security report generation"
+          operations:
+            - name: generate-report
+              method: POST
+              description: "Submit a report generation request"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  report_type: "{{tools.report_type}}"
+                  scan_type: "{{tools.scan_type}}"
+                  status: "{{tools.status}}"
+                  severity: "{{tools.severity}}"
+
+        - name: report-by-id
+          path: /appsec/v1/analytics/report/{reportId}
+          description: "Report retrieval"
+          operations:
+            - name: get-report
+              method: GET
+              description: "Retrieve a generated report by ID"
+              inputParameters:
+                - name: reportId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Report ID from generate request"
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page number"
+                - name: size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page size"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."

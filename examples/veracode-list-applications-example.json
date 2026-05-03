@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.veracode.com/appsec/v1/applications?policy_compliance=DID_NOT_PASS&size=10",
+    "headers": {
+      "Authorization": "VERACODE-HMAC-SHA-256 id=your_api_id,ts=...,nonce=...,sig=...",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "_embedded": {
+        "applications": [
+          {
+            "guid": "7bc1b67e-c8ad-4e2c-abe4-9ca8ba124e19",
+            "profile": {
+              "name": "My Web Application",
+              "description": "Customer-facing e-commerce application",
+              "business_criticality": "HIGH",
+              "tags": "production,web,ecommerce",
+              "policy": {
+                "name": "Veracode Recommended High Security Policy"
+              }
+            },
+            "scans": [
+              {
+                "scan_type": "STATIC",
+                "status": "RESULTS_READY",
+                "date": "2026-04-20T10:00:00Z"
+              }
+            ],
+            "last_completed_scan_date": "2026-04-20T10:00:00Z",
+            "created": "2025-01-15T09:00:00Z",
+            "modified": "2026-04-20T10:00:00Z"
+          }
+        ]
+      },
+      "page": {
+        "total_elements": 3,
+        "total_pages": 1,
+        "size": 10,
+        "number": 0
+      }
+    }
+  }
+}

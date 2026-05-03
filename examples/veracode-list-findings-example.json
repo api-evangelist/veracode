@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.veracode.com/appsec/v2/applications/7bc1b67e-c8ad-4e2c-abe4-9ca8ba124e19/findings?scan_type=STATIC&severity_gte=3&violates_policy=true",
+    "headers": {
+      "Authorization": "VERACODE-HMAC-SHA-256 id=your_api_id,ts=...,nonce=...,sig=...",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "_embedded": {
+        "findings": [
+          {
+            "issue_id": 1001,
+            "scan_type": "STATIC",
+            "severity": 5,
+            "cwe": {
+              "id": 89,
+              "name": "SQL Injection",
+              "href": "https://cwe.mitre.org/data/definitions/89.html"
+            },
+            "finding_status": {
+              "status": "OPEN",
+              "new": true,
+              "first_found_date": "2026-04-20T10:00:00Z",
+              "last_seen_date": "2026-04-20T10:00:00Z"
+            },
+            "violates_policy": true,
+            "cvss": 9.8
+          },
+          {
+            "issue_id": 1002,
+            "scan_type": "STATIC",
+            "severity": 4,
+            "cwe": {
+              "id": 79,
+              "name": "Cross-site Scripting (XSS)",
+              "href": "https://cwe.mitre.org/data/definitions/79.html"
+            },
+            "finding_status": {
+              "status": "OPEN",
+              "new": false,
+              "first_found_date": "2026-03-01T09:00:00Z",
+              "last_seen_date": "2026-04-20T10:00:00Z"
+            },
+            "violates_policy": true,
+            "cvss": 7.2
+          }
+        ]
+      },
+      "page": {
+        "total_elements": 2,
+        "total_pages": 1,
+        "size": 20,
+        "number": 0
+      }
+    }
+  }
+}

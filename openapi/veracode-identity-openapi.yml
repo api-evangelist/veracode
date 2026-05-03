@@ -1,0 +1,662 @@
+openapi: 3.1.0
+info:
+  title: Veracode Identity REST API
+  description: >-
+    The Veracode Identity REST API manages users, API service accounts, teams,
+    business units, roles, and API credentials for a Veracode organization.
+    Provides full CRUD operations for organizational identity and access management.
+    Base URL: https://api.veracode.com/api/authn/v2
+  version: 2.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+servers:
+  - url: https://api.veracode.com
+    description: Veracode Commercial Region API
+tags:
+  - name: Users
+    description: User and API service account management
+  - name: API Credentials
+    description: API credential lifecycle management
+  - name: Roles
+    description: Role and permission management
+  - name: Teams
+    description: Team management
+  - name: Business Units
+    description: Business unit management
+paths:
+  /api/authn/v2/users:
+    get:
+      operationId: listUsers
+      summary: List Users
+      description: Returns all users in the organization. Paginated, max 20 per page.
+      tags:
+        - Users
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createUser
+      summary: Create User
+      description: Creates a new user or API service account in the organization.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/search:
+    get:
+      operationId: searchUsers
+      summary: Search Users
+      description: Search users by term, API ID, role, type, or SAML status.
+      tags:
+        - Users
+      parameters:
+        - name: search_term
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: api_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: role_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: user_type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - HUMAN
+              - API
+        - name: saml_user
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/self:
+    get:
+      operationId: getCurrentUser
+      summary: Get Current User
+      description: Returns the current authenticated user's principal details.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Current user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/{userId}:
+    put:
+      operationId: updateUser
+      summary: Update User
+      description: Updates an existing user account.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUser
+      summary: Delete User
+      description: Deletes a user account from the organization.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/authn/v2/api_credentials:
+    post:
+      operationId: generateApiCredentials
+      summary: Generate API Credentials
+      description: Generates new API credentials for the current user.
+      tags:
+        - API Credentials
+      responses:
+        '200':
+          description: New API credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCredentials'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: getApiCredentialExpiration
+      summary: Get API Credential Expiration
+      description: Returns the expiration date for the current user's API credentials.
+      tags:
+        - API Credentials
+      responses:
+        '200':
+          description: Credential expiration details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCredentialExpiration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/api_credentials/{apiCredsId}:
+    get:
+      operationId: getApiCredentialById
+      summary: Get API Credential
+      description: Returns expiration details for a specific API credential.
+      tags:
+        - API Credentials
+      parameters:
+        - name: apiCredsId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credential details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCredentialExpiration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: revokeApiCredentials
+      summary: Revoke API Credentials
+      description: Revokes a set of API credentials.
+      tags:
+        - API Credentials
+      parameters:
+        - name: apiCredsId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Credentials revoked
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/teams:
+    get:
+      operationId: listTeams
+      summary: List Teams
+      description: Returns all teams in the organization.
+      tags:
+        - Teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTeam
+      summary: Create Team
+      description: Creates a new team in the organization.
+      tags:
+        - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamProfile'
+      responses:
+        '200':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/teams/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Get Team
+      description: Returns details for a specific team.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTeam
+      summary: Update Team
+      description: Updates an existing team.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamProfile'
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteTeam
+      summary: Delete Team
+      description: Deletes a team from the organization.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '204':
+          description: Team deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/business_units:
+    get:
+      operationId: listBusinessUnits
+      summary: List Business Units
+      description: Returns all business units in the organization.
+      tags:
+        - Business Units
+      responses:
+        '200':
+          description: List of business units
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessUnitsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBusinessUnit
+      summary: Create Business Unit
+      description: Creates a new business unit.
+      tags:
+        - Business Units
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessUnitProfile'
+      responses:
+        '200':
+          description: Business unit created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessUnit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/roles:
+    get:
+      operationId: listRoles
+      summary: List Roles
+      description: Returns all available roles.
+      tags:
+        - Roles
+      responses:
+        '200':
+          description: List of roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolesPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials
+  parameters:
+    UserId:
+      name: userId
+      in: path
+      required: true
+      description: User unique identifier
+      schema:
+        type: string
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Team unique identifier
+      schema:
+        type: string
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        email_address:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        user_type:
+          type: string
+          enum:
+            - HUMAN
+            - API
+        roles:
+          type: array
+          items:
+            type: object
+            properties:
+              role_name:
+                type: string
+        teams:
+          type: array
+          items:
+            type: object
+            properties:
+              team_id:
+                type: string
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+        user_name:
+          type: string
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        user_type:
+          type: string
+          enum:
+            - HUMAN
+            - API
+        active:
+          type: boolean
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    UsersPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            users:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ApiCredentials:
+      type: object
+      properties:
+        api_id:
+          type: string
+          description: API ID for HMAC authentication
+        api_secret_key:
+          type: string
+          description: API secret key (shown only once at creation)
+        created:
+          type: string
+          format: date-time
+        expiration_ts:
+          type: string
+          format: date-time
+    ApiCredentialExpiration:
+      type: object
+      properties:
+        api_id:
+          type: string
+        expiration_ts:
+          type: string
+          format: date-time
+        expiration_status:
+          type: string
+          enum:
+            - ACTIVE
+            - EXPIRED
+            - EXPIRING_SOON
+    TeamProfile:
+      type: object
+      properties:
+        team_name:
+          type: string
+        relationship:
+          type: object
+          properties:
+            name:
+              type: string
+    Team:
+      type: object
+      properties:
+        team_id:
+          type: string
+        team_name:
+          type: string
+        relationship:
+          type: object
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    TeamsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            teams:
+              type: array
+              items:
+                $ref: '#/components/schemas/Team'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    BusinessUnitProfile:
+      type: object
+      properties:
+        name:
+          type: string
+    BusinessUnit:
+      type: object
+      properties:
+        bu_id:
+          type: string
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+    BusinessUnitsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            business_units:
+              type: array
+              items:
+                $ref: '#/components/schemas/BusinessUnit'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    Role:
+      type: object
+      properties:
+        role_id:
+          type: string
+        role_name:
+          type: string
+        role_description:
+          type: string
+        is_scan_type:
+          type: boolean
+    RolesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            roles:
+              type: array
+              items:
+                $ref: '#/components/schemas/Role'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions for this operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - HmacAuth: []

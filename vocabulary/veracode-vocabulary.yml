@@ -1,0 +1,136 @@
+title: Veracode Vocabulary
+description: >-
+  Domain vocabulary for Veracode covering application security testing, vulnerability
+  management, DevSecOps integration, and security policy compliance concepts.
+created: '2026-05-03'
+modified: '2026-05-03'
+terms:
+  - term: SAST
+    definition: >-
+      Static Application Security Testing — analysis of application source code,
+      bytecode, or binary code for security vulnerabilities without executing the
+      application. Veracode's SAST scans are uploaded to the platform.
+    tags:
+      - Security Testing
+      - Static Analysis
+
+  - term: DAST
+    definition: >-
+      Dynamic Application Security Testing — security testing performed against
+      a running application to find vulnerabilities exploitable from the outside.
+      Veracode's DAST is called Dynamic Analysis.
+    tags:
+      - Security Testing
+      - Dynamic Analysis
+
+  - term: SCA
+    definition: >-
+      Software Composition Analysis — automated identification of open source
+      components, licenses, and security vulnerabilities in software dependencies.
+    tags:
+      - Security Testing
+      - Open Source
+      - Dependencies
+
+  - term: MPT
+    definition: >-
+      Manual Penetration Testing — human-led security assessment performed by
+      Veracode security experts to identify vulnerabilities requiring human judgment.
+    tags:
+      - Security Testing
+      - Penetration Testing
+
+  - term: CWE
+    definition: >-
+      Common Weakness Enumeration — a community-developed list of software and
+      hardware weakness types used to classify security findings. Each finding
+      maps to a CWE ID.
+    tags:
+      - Vulnerabilities
+      - Classification
+
+  - term: CVSS
+    definition: >-
+      Common Vulnerability Scoring System — a standard framework for rating the
+      severity of security vulnerabilities on a 0-10 scale.
+    tags:
+      - Vulnerabilities
+      - Scoring
+
+  - term: Policy Compliance
+    definition: >-
+      The evaluation of whether an application meets the security requirements
+      defined in its assigned Veracode policy. Statuses include PASSED,
+      DID_NOT_PASS, CONDITIONAL_PASS, and NOT_ASSESSED.
+    tags:
+      - Compliance
+      - Policy
+
+  - term: Business Criticality
+    definition: >-
+      A rating of how important an application is to the business, used to
+      prioritize security work. Values: VERY_HIGH, HIGH, MEDIUM, LOW, VERY_LOW.
+    tags:
+      - Applications
+      - Risk Management
+
+  - term: Sandbox
+    definition: >-
+      A development sandbox is an isolated environment within a Veracode
+      application profile for testing code changes without affecting the
+      policy compliance status.
+    tags:
+      - Applications
+      - Development
+
+  - term: Pipeline Scan
+    definition: >-
+      A fast, lightweight Veracode SAST scan designed to run in CI/CD pipelines.
+      Returns results in minutes rather than the hours required for a full scan.
+    tags:
+      - CI/CD
+      - DevSecOps
+      - SAST
+
+  - term: HMAC Authentication
+    definition: >-
+      Hash-based Message Authentication Code — the authentication scheme used by
+      all Veracode REST APIs. Requires an API ID and API key to generate a
+      cryptographic signature for each request.
+    tags:
+      - Authentication
+      - Security
+
+  - term: Annotation
+    definition: >-
+      A review action applied to a security finding to record mitigation decisions.
+      Types include APPROVED (accepted risk), REJECTED, and COMMENT.
+    tags:
+      - Findings
+      - Workflow
+
+  - term: Greenlight
+    definition: >-
+      Veracode Greenlight is an IDE security scanning integration that allows
+      developers to scan individual files or functions during development.
+    tags:
+      - IDE
+      - SAST
+      - Developer Tools
+
+  - term: DevSecOps
+    definition: >-
+      The practice of integrating security testing and vulnerability management
+      directly into the software development and deployment pipeline.
+    tags:
+      - DevSecOps
+      - CI/CD
+      - Security
+
+  - term: Flaw
+    definition: >-
+      A specific instance of a security weakness found in application code.
+      Each flaw has a CWE classification, severity, and location information.
+    tags:
+      - Findings
+      - Vulnerabilities

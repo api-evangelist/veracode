@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-finding-schema.json",
+  "title": "Veracode Security Finding",
+  "description": "Schema for a Veracode security finding from SAST, DAST, MPT, or SCA analysis.",
+  "type": "object",
+  "properties": {
+    "issue_id": {
+      "type": "integer",
+      "description": "Unique finding issue ID"
+    },
+    "scan_type": {
+      "type": "string",
+      "enum": ["STATIC", "DYNAMIC", "MANUAL", "SCA"],
+      "description": "Type of scan that identified this finding"
+    },
+    "severity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Severity level: 0=Informational, 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High"
+    },
+    "cwe": {
+      "type": "object",
+      "description": "Common Weakness Enumeration classification",
+      "properties": {
+        "id": { "type": "integer", "description": "CWE identifier number" },
+        "name": { "type": "string", "description": "CWE name" },
+        "href": { "type": "string", "format": "uri", "description": "CWE reference URL" }
+      },
+      "required": ["id", "name"]
+    },
+    "cvss": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10,
+      "description": "CVSS score"
+    },
+    "violates_policy": {
+      "type": "boolean",
+      "description": "Whether this finding violates the applied security policy"
+    },
+    "finding_status": {
+      "type": "object",
+      "description": "Current status and lifecycle information for the finding",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["OPEN", "CLOSED", "MITIGATED"],
+          "description": "Current finding status"
+        },
+        "new": {
+          "type": "boolean",
+          "description": "Whether this is a new finding"
+        },
+        "mitigation_review_status": {
+          "type": "string",
+          "description": "Status of mitigation review"
+        },
+        "first_found_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the finding was first detected"
+        },
+        "last_seen_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the finding was most recently confirmed"
+        }
+      },
+      "required": ["status"]
+    },
+    "annotations": {
+      "type": "array",
+      "description": "Review annotations for this finding",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["APPROVED", "REJECTED", "COMMENT"]
+          },
+          "comment": { "type": "string" },
+          "created": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  },
+  "required": ["issue_id", "scan_type", "severity", "finding_status"]
+}

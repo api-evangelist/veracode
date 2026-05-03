@@ -1,0 +1,128 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veracode Findings API"
+  description: "Retrieve security findings from SAST, DAST, MPT, and SCA scans across the Veracode portfolio."
+  tags:
+    - Veracode
+    - Findings
+    - Vulnerabilities
+    - SAST
+    - DAST
+    - Application Security
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VERACODE_API_ID: VERACODE_API_ID
+      VERACODE_API_KEY: VERACODE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: veracode-findings
+      baseUri: https://api.veracode.com
+      description: "Veracode Findings REST API"
+      authentication:
+        type: hmac
+        apiId: "{{VERACODE_API_ID}}"
+        apiKey: "{{VERACODE_API_KEY}}"
+      resources:
+        - name: findings
+          path: /appsec/v2/applications/{applicationGuid}/findings
+          description: "Application security findings"
+          operations:
+            - name: list-findings
+              method: GET
+              description: "List security findings for an application with filtering"
+              inputParameters:
+                - name: applicationGuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application GUID"
+                - name: scan_type
+                  in: query
+                  type: array
+                  required: false
+                  description: "Filter by scan type: STATIC, DYNAMIC, MANUAL, SCA"
+                - name: severity
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Filter by severity level 0-5"
+                - name: severity_gte
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Minimum severity level"
+                - name: cwe
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by CWE ID"
+                - name: violates_policy
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Only policy-violating findings"
+                - name: new
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Only new findings"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: dynamic-flaw-info
+          path: /appsec/v2/applications/{applicationGuid}/findings/{issueId}/dynamic_flaw_info
+          description: "Dynamic analysis flaw details"
+          operations:
+            - name: get-dynamic-flaw-info
+              method: GET
+              description: "Get detailed dynamic analysis vulnerability information"
+              inputParameters:
+                - name: applicationGuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application GUID"
+                - name: issueId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Finding issue ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: static-flaw-info
+          path: /appsec/v2/applications/{applicationGuid}/findings/{findingId}/static_flaw_info
+          description: "Static analysis flaw code paths"
+          operations:
+            - name: get-static-flaw-info
+              method: GET
+              description: "Get static analysis flaw code path data"
+              inputParameters:
+                - name: applicationGuid
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application GUID"
+                - name: findingId
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Finding ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."

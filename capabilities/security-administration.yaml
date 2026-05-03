@@ -1,0 +1,180 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veracode Security Administration"
+  description: >-
+    Unified workflow capability for Veracode platform administration. Enables
+    security administrators to manage users, API service accounts, teams, business
+    units, and roles across the Veracode organization. Designed for platform admins
+    responsible for access control, onboarding, and organizational structure.
+  tags:
+    - Veracode
+    - Identity Management
+    - Access Control
+    - Users
+    - Administration
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VERACODE_API_ID: VERACODE_API_ID
+      VERACODE_API_KEY: VERACODE_API_KEY
+
+capability:
+  consumes:
+    - import: veracode-identity
+      location: ./shared/veracode-identity.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: veracode-admin-api
+      description: "Unified REST API for Veracode platform administration."
+      resources:
+        - path: /v1/users
+          name: users
+          description: "User account management"
+          operations:
+            - method: GET
+              name: list-users
+              description: "List all users in the organization"
+              call: "veracode-identity.list-users"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-user
+              description: "Create a new user or API service account"
+              call: "veracode-identity.create-user"
+              with:
+                email_address: "rest.email_address"
+                first_name: "rest.first_name"
+                last_name: "rest.last_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/users/search
+          name: user-search
+          description: "User search"
+          operations:
+            - method: GET
+              name: search-users
+              description: "Search users by term or type"
+              call: "veracode-identity.search-users"
+              with:
+                search_term: "rest.search_term"
+                user_type: "rest.user_type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/teams
+          name: teams
+          description: "Team management"
+          operations:
+            - method: GET
+              name: list-teams
+              description: "List all teams"
+              call: "veracode-identity.list-teams"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-team
+              description: "Create a new team"
+              call: "veracode-identity.create-team"
+              with:
+                team_name: "rest.team_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/roles
+          name: roles
+          description: "Role management"
+          operations:
+            - method: GET
+              name: list-roles
+              description: "List all available roles"
+              call: "veracode-identity.list-roles"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: veracode-admin-mcp
+      transport: http
+      description: "MCP server for AI-assisted Veracode platform administration."
+      tools:
+        - name: list-users
+          description: "List all users in the Veracode organization"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-identity.list-users"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-users
+          description: "Search Veracode users by name, email, role, or type"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "veracode-identity.search-users"
+          with:
+            search_term: "tools.search_term"
+            user_type: "tools.user_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-user
+          description: "Create a new user or API service account in the Veracode organization"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "veracode-identity.create-user"
+          with:
+            email_address: "tools.email_address"
+            first_name: "tools.first_name"
+            last_name: "tools.last_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-teams
+          description: "List all teams in the Veracode organization"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-identity.list-teams"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-team
+          description: "Create a new team in the Veracode organization"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "veracode-identity.create-team"
+          with:
+            team_name: "tools.team_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-roles
+          description: "List all available roles for role-based access control"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-identity.list-roles"
+          outputParameters:
+            - type: object
+              mapping: "$."

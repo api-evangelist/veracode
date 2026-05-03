@@ -1,0 +1,253 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veracode DevSecOps Pipeline"
+  description: >-
+    Unified workflow capability for integrating Veracode application security into
+    DevSecOps pipelines. Enables development teams and security engineers to automate
+    application onboarding, trigger security scans, retrieve findings filtered by
+    severity and policy compliance, and generate compliance reports — all through
+    a single unified API. Combines the Applications, Findings, and Reporting APIs.
+  tags:
+    - Veracode
+    - DevSecOps
+    - Application Security
+    - SAST
+    - DAST
+    - CI/CD
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VERACODE_API_ID: VERACODE_API_ID
+      VERACODE_API_KEY: VERACODE_API_KEY
+
+capability:
+  consumes:
+    - import: veracode-applications
+      location: ./shared/veracode-applications.yaml
+    - import: veracode-findings
+      location: ./shared/veracode-findings.yaml
+    - import: veracode-reporting
+      location: ./shared/veracode-reporting.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: veracode-devsecops-api
+      description: "Unified REST API for DevSecOps pipeline security automation."
+      resources:
+        - path: /v1/applications
+          name: applications
+          description: "Application portfolio management"
+          operations:
+            - method: GET
+              name: list-applications
+              description: "List all applications with policy compliance filtering"
+              call: "veracode-applications.list-applications"
+              with:
+                name: "rest.name"
+                policy_compliance: "rest.policy_compliance"
+                tag: "rest.tag"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-application
+              description: "Create a new application profile"
+              call: "veracode-applications.create-application"
+              with:
+                profile: "rest.profile"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/applications/{applicationGuid}
+          name: application-by-id
+          description: "Individual application management"
+          operations:
+            - method: GET
+              name: get-application
+              description: "Get application details"
+              call: "veracode-applications.get-application"
+              with:
+                applicationGuid: "rest.applicationGuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/applications/{applicationGuid}/policy-compliance
+          name: policy-compliance
+          description: "Policy compliance status"
+          operations:
+            - method: GET
+              name: get-policy-compliance
+              description: "Get policy compliance for an application"
+              call: "veracode-applications.get-policy-compliance"
+              with:
+                applicationGuid: "rest.applicationGuid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/applications/{applicationGuid}/findings
+          name: findings
+          description: "Security findings from all scan types"
+          operations:
+            - method: GET
+              name: list-findings
+              description: "List findings with severity and scan type filtering"
+              call: "veracode-findings.list-findings"
+              with:
+                applicationGuid: "rest.applicationGuid"
+                scan_type: "rest.scan_type"
+                severity_gte: "rest.severity_gte"
+                violates_policy: "rest.violates_policy"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/reports
+          name: reports
+          description: "Security compliance reports"
+          operations:
+            - method: POST
+              name: generate-report
+              description: "Generate an async security report"
+              call: "veracode-reporting.generate-report"
+              with:
+                report_type: "rest.report_type"
+                scan_type: "rest.scan_type"
+                status: "rest.status"
+                severity: "rest.severity"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/reports/{reportId}
+          name: report-by-id
+          description: "Retrieve generated reports"
+          operations:
+            - method: GET
+              name: get-report
+              description: "Get report results by ID"
+              call: "veracode-reporting.get-report"
+              with:
+                reportId: "rest.reportId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: veracode-devsecops-mcp
+      transport: http
+      description: "MCP server for AI-assisted DevSecOps security automation and vulnerability triage."
+      tools:
+        - name: list-applications
+          description: "List Veracode applications, optionally filtered by policy compliance status or name"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "veracode-applications.list-applications"
+          with:
+            name: "tools.name"
+            policy_compliance: "tools.policy_compliance"
+            tag: "tools.tag"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-application
+          description: "Get details for a specific Veracode application by GUID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-applications.get-application"
+          with:
+            applicationGuid: "tools.applicationGuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-application
+          description: "Create a new application profile in the Veracode Platform"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "veracode-applications.create-application"
+          with:
+            profile: "tools.profile"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-policy-compliance
+          description: "Get policy compliance evaluation status for an application"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-applications.get-policy-compliance"
+          with:
+            applicationGuid: "tools.applicationGuid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-findings
+          description: "List security findings for a Veracode application, filterable by scan type, severity, CWE, and policy violations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "veracode-findings.list-findings"
+          with:
+            applicationGuid: "tools.applicationGuid"
+            scan_type: "tools.scan_type"
+            severity_gte: "tools.severity_gte"
+            cwe: "tools.cwe"
+            violates_policy: "tools.violates_policy"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-static-flaw-info
+          description: "Get static analysis flaw code path details for a specific finding"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-findings.get-static-flaw-info"
+          with:
+            applicationGuid: "tools.applicationGuid"
+            findingId: "tools.findingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: generate-security-report
+          description: "Generate an asynchronous security findings or compliance report"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "veracode-reporting.generate-report"
+          with:
+            report_type: "tools.report_type"
+            scan_type: "tools.scan_type"
+            status: "tools.status"
+            severity: "tools.severity"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-security-report
+          description: "Retrieve a generated security report by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "veracode-reporting.get-report"
+          with:
+            reportId: "tools.reportId"
+          outputParameters:
+            - type: object
+              mapping: "$."

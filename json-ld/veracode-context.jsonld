@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "veracode": "https://www.veracode.com/vocab/",
+    "cwe": "https://cwe.mitre.org/vocab/",
+    "cvss": "https://www.first.org/cvss/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Application": "veracode:Application",
+    "SecurityFinding": "veracode:SecurityFinding",
+    "Sandbox": "veracode:Sandbox",
+    "PolicyEvaluation": "veracode:PolicyEvaluation",
+    "SecurityReport": "veracode:SecurityReport",
+    "User": "schema:Person",
+    "Team": "schema:Organization",
+
+    "applicationGuid": "schema:identifier",
+    "applicationName": "schema:name",
+    "businessCriticality": "veracode:businessCriticality",
+    "policyName": "veracode:policyName",
+    "policyComplianceStatus": "veracode:policyComplianceStatus",
+
+    "issueId": "schema:identifier",
+    "scanType": "veracode:scanType",
+    "severity": "veracode:severity",
+    "cweId": "cwe:identifier",
+    "cweName": "cwe:name",
+    "cvssScore": "cvss:score",
+    "violatesPolicy": "veracode:violatesPolicy",
+    "findingStatus": "veracode:findingStatus",
+    "firstFoundDate": {
+      "@id": "veracode:firstFoundDate",
+      "@type": "xsd:dateTime"
+    },
+    "lastSeenDate": {
+      "@id": "veracode:lastSeenDate",
+      "@type": "xsd:dateTime"
+    },
+
+    "userId": "schema:identifier",
+    "emailAddress": "schema:email",
+    "userType": "veracode:userType",
+    "teamId": "schema:identifier",
+    "teamName": "schema:name",
+
+    "reportId": "schema:identifier",
+    "reportType": "veracode:reportType",
+    "reportStatus": "veracode:reportStatus",
+
+    "created": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "modified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

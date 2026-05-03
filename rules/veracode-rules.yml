@@ -1,0 +1,119 @@
+extends: spectral:oas
+rules:
+  # Veracode APIs use HMAC authentication
+  veracode-hmac-auth-defined:
+    description: Veracode APIs must define HMAC security scheme
+    message: Security scheme must use veracode_hmac scheme
+    severity: error
+    given: "$.components.securitySchemes[*]"
+    then:
+      field: scheme
+      function: pattern
+      functionOptions:
+        match: "veracode_hmac"
+
+  # All paths must use /appsec/ or /api/authn/ prefix
+  veracode-path-prefix:
+    description: Veracode API paths must use /appsec/ or /api/authn/ prefix
+    message: "Path '{{value}}' must start with /appsec/ or /api/authn/"
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/appsec/|/api/authn/)"
+
+  # All operations must have operationId
+  veracode-operation-id-required:
+    description: All operations must define an operationId
+    message: Operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  # operationId should be camelCase
+  veracode-operation-id-camel-case:
+    description: operationId should use camelCase
+    message: "operationId '{{value}}' should use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # Summaries must be Title Case
+  veracode-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s[A-Z][a-zA-Z]*)*$"
+
+  # All operations need summaries
+  veracode-summary-required:
+    description: All operations must have a summary
+    message: Operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  # Must define 401 response (HMAC auth is always required)
+  veracode-401-response:
+    description: All operations must document 401 Unauthorized response
+    message: Operation must define a 401 response for HMAC authentication failures
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: truthy
+
+  # GUIDs should be uuid format
+  veracode-guid-uuid-format:
+    description: Properties named 'guid' should use uuid format
+    message: GUID property should have format uuid
+    severity: warn
+    given: "$.components.schemas[*].properties.guid"
+    then:
+      field: format
+      function: truthy
+
+  # Response schemas should use HAL _embedded pattern
+  veracode-hal-embedded-pattern:
+    description: Collection responses should use HAL _embedded structure
+    message: List responses should use _embedded container pattern
+    severity: hint
+    given: "$.components.schemas[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  # API version in path
+  veracode-api-version-in-path:
+    description: API paths should include version (v1, v2, etc.)
+    message: "Path '{{value}}' should include API version"
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v[0-9]/"
+
+  # Contact info required
+  veracode-info-contact:
+    description: API info must include contact information
+    message: API info must include contact details
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy

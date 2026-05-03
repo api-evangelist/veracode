@@ -1,0 +1,45 @@
+{
+  "title": "Veracode Security Finding Structure",
+  "description": "Structural documentation for a Veracode security finding",
+  "type": "object",
+  "fields": [
+    { "name": "issue_id", "type": "integer", "description": "Unique finding issue ID" },
+    { "name": "scan_type", "type": "string", "description": "STATIC, DYNAMIC, MANUAL, or SCA" },
+    { "name": "severity", "type": "integer", "description": "0=Informational to 5=Very High" },
+    {
+      "name": "cwe",
+      "type": "object",
+      "description": "CWE classification",
+      "fields": [
+        { "name": "id", "type": "integer", "description": "CWE number" },
+        { "name": "name", "type": "string", "description": "CWE name" },
+        { "name": "href", "type": "string", "description": "CWE reference URL" }
+      ]
+    },
+    { "name": "cvss", "type": "number", "description": "CVSS score 0.0-10.0" },
+    { "name": "violates_policy", "type": "boolean", "description": "Policy violation flag" },
+    {
+      "name": "finding_status",
+      "type": "object",
+      "description": "Finding lifecycle status",
+      "fields": [
+        { "name": "status", "type": "string", "description": "OPEN, CLOSED, or MITIGATED" },
+        { "name": "new", "type": "boolean", "description": "New finding flag" },
+        { "name": "first_found_date", "type": "string", "description": "First detection date-time" },
+        { "name": "last_seen_date", "type": "string", "description": "Most recent confirmation date-time" }
+      ]
+    },
+    {
+      "name": "annotations",
+      "type": "array",
+      "description": "Review annotations",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "action", "type": "string", "description": "APPROVED, REJECTED, or COMMENT" },
+          { "name": "comment", "type": "string", "description": "Annotation text" }
+        ]
+      }
+    }
+  ]
+}

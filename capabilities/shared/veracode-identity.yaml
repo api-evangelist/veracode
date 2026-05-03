@@ -1,0 +1,134 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Veracode Identity API"
+  description: "Manage users, teams, business units, roles, and API credentials for a Veracode organization."
+  tags:
+    - Veracode
+    - Identity
+    - Users
+    - Access Control
+    - Application Security
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      VERACODE_API_ID: VERACODE_API_ID
+      VERACODE_API_KEY: VERACODE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: veracode-identity
+      baseUri: https://api.veracode.com
+      description: "Veracode Identity REST API"
+      authentication:
+        type: hmac
+        apiId: "{{VERACODE_API_ID}}"
+        apiKey: "{{VERACODE_API_KEY}}"
+      resources:
+        - name: users
+          path: /api/authn/v2/users
+          description: "User account management"
+          operations:
+            - name: list-users
+              method: GET
+              description: "List all users in the organization"
+              inputParameters:
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page number"
+                - name: size
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page size"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-user
+              method: POST
+              description: "Create a new user or API service account"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  email_address: "{{tools.email_address}}"
+                  first_name: "{{tools.first_name}}"
+                  last_name: "{{tools.last_name}}"
+
+        - name: user-search
+          path: /api/authn/v2/users/search
+          description: "User search"
+          operations:
+            - name: search-users
+              method: GET
+              description: "Search users by term, role, type, or API ID"
+              inputParameters:
+                - name: search_term
+                  in: query
+                  type: string
+                  required: false
+                  description: "Search term"
+                - name: user_type
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by user type: HUMAN or API"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: teams
+          path: /api/authn/v2/teams
+          description: "Team management"
+          operations:
+            - name: list-teams
+              method: GET
+              description: "List all teams in the organization"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-team
+              method: POST
+              description: "Create a new team"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  team_name: "{{tools.team_name}}"
+
+        - name: roles
+          path: /api/authn/v2/roles
+          description: "Role management"
+          operations:
+            - name: list-roles
+              method: GET
+              description: "List all available roles"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
