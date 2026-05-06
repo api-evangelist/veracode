@@ -4,102 +4,52 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Veracode
 providerId: veracode
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Application Security
   - SAST
   - DAST
   - SCA
-  - Security Testing
   - DevSecOps
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Veracode API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: Veracode does not publish numeric per-second / per-minute API rate limits, but documents
+  concrete throttling and retry guidance in its API Best Practices. Excessive polling triggers throttling;
+  HTTP 429 is returned with a retry-after header. Veracode also publishes operational guidance (minimum
+  poll interval, retry budget) that consumers must follow to stay below the throttle threshold.
+sources:
+  - https://docs.veracode.com/r/About_Veracode_API_Best_Practices
+  - https://docs.veracode.com/r/c_rest_intro
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  retryAfter: retry-after
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: Status-check polling minimum interval
+    scope: account
     metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Veracode Applications REST API
-      - Veracode Findings REST API
-      - Veracode Identity REST API
-      - Veracode Reporting REST API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Veracode Applications REST API
-      - Veracode Findings REST API
-      - Veracode Identity REST API
-      - Veracode Reporting REST API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Veracode Applications REST API
-      - Veracode Findings REST API
-      - Veracode Identity REST API
-      - Veracode Reporting REST API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Veracode Applications REST API
-      - Veracode Findings REST API
-      - Veracode Identity REST API
-      - Veracode Reporting REST API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Veracode Applications REST API
-      - Veracode Findings REST API
-      - Veracode Identity REST API
-      - Veracode Reporting REST API
+    limit: 1 every 2 minutes (recommended minimum spacing for status polls)
+    notes: Veracode best practices mandate at least two minutes between status check calls; excessive
+      polling will be throttled.
+  - name: General API throttling threshold
+    scope: account
+    metric: varies
+    limit: not numerically published; throttling engages when polling / call rate is excessive
+    notes: Veracode does not publish a global RPS / RPM ceiling; throttle behavior is account-scoped.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Honor retry-after on 429
+    description: On HTTP 429, clients must read the retry-after header and wait at least that long before
+      retrying.
+  - name: Five-retry maximum
+    description: Veracode best practices cap retries at five attempts to handle transient network issues;
+      beyond that, fail and surface the error.
+  - name: Use Reporting / Findings APIs for bulk pulls
+    description: For large-scale data retrieval, use the Reporting API rather than polling per-application
+      endpoints; for near real-time per-app data, use the Findings or Summary Report REST APIs.
+  - name: Use service accounts
+    description: Automations should run under API service accounts (with the dedicated API role), not
+      under user accounts; credentials expire after 365 days and must be rotated.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+    url: https://apievangelist.com
