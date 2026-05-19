@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Veracode Identity REST API — Roles
+  description: 'Veracode Identity REST API — Roles. 1 operations. Lead operation: List Roles. Self-contained Naftiko capability
+    covering one Veracode business surface.'
+  tags:
+  - Veracode
+  - Roles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    VERACODE_API_KEY: VERACODE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: identity-roles
+    baseUri: https://api.veracode.com
+    description: Veracode Identity REST API — Roles business capability. Self-contained, no shared references.
+    resources:
+    - name: api-authn-v2-roles
+      path: /api/authn/v2/roles
+      operations:
+      - name: listroles
+        method: GET
+        description: List Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: identity-roles-rest
+    port: 8080
+    description: REST adapter for Veracode Identity REST API — Roles. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/authn/v2/roles
+      name: api-authn-v2-roles
+      description: REST surface for api-authn-v2-roles.
+      operations:
+      - method: GET
+        name: listroles
+        description: List Roles
+        call: identity-roles.listroles
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: identity-roles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Veracode Identity REST API — Roles. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-roles
+      description: List Roles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: identity-roles.listroles
+      outputParameters:
+      - type: object
+        mapping: $.
