@@ -1,0 +1,1005 @@
+"""
+Veracode GraphQL Schema
+Conceptual schema derived from Veracode REST APIs covering application security testing,
+findings, identity management, reporting, policy, sandboxes, and compliance.
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# ─────────────────────────────────────────────
+# Root Query
+# ─────────────────────────────────────────────
+
+type Query {
+  # Applications
+  application(id: ID!): Application
+  applications(filter: ApplicationFilter, page: Int, size: Int): ApplicationPage
+
+  # Findings
+  finding(applicationId: ID!, findingId: ID!): Finding
+  findings(applicationId: ID!, filter: FindingFilter, page: Int, size: Int): FindingPage
+
+  # Sandboxes
+  sandbox(applicationId: ID!, sandboxId: ID!): Sandbox
+  sandboxes(applicationId: ID!, page: Int, size: Int): SandboxPage
+
+  # Scans
+  scan(applicationId: ID!, scanId: ID!): Scan
+  scans(applicationId: ID!, filter: ScanFilter, page: Int, size: Int): ScanPage
+
+  # Policy
+  policy(id: ID!): Policy
+  policies(page: Int, size: Int): PolicyPage
+
+  # Identity
+  user(id: ID!): User
+  users(filter: UserFilter, page: Int, size: Int): UserPage
+  team(id: ID!): Team
+  teams(page: Int, size: Int): TeamPage
+  businessUnit(id: ID!): BusinessUnit
+  businessUnits(page: Int, size: Int): BusinessUnitPage
+  role(id: ID!): Role
+  roles: [Role!]!
+
+  # Reports
+  report(id: ID!): Report
+  reports(filter: ReportFilter, page: Int, size: Int): ReportPage
+
+  # SCA
+  component(id: ID!): Component
+  components(applicationId: ID!, filter: ComponentFilter, page: Int, size: Int): ComponentPage
+  vulnerability(cve: String!): Vulnerability
+
+  # Modules
+  module(applicationId: ID!, scanId: ID!, moduleId: ID!): Module
+  modules(applicationId: ID!, scanId: ID!): [Module!]!
+
+  # Annotations
+  annotation(findingId: ID!, annotationId: ID!): Annotation
+  annotations(findingId: ID!, page: Int, size: Int): AnnotationPage
+
+  # Audit logs
+  auditEvents(filter: AuditEventFilter, page: Int, size: Int): AuditEventPage
+
+  # Collections
+  collection(id: ID!): Collection
+  collections(page: Int, size: Int): CollectionPage
+
+  # Tags
+  tags: [Tag!]!
+
+  # Credentials
+  apiCredential(id: ID!): ApiCredential
+  apiCredentials(userId: ID!): [ApiCredential!]!
+
+  # Workflow
+  workflowAction(id: ID!): WorkflowAction
+  workflowActions(applicationId: ID!): [WorkflowAction!]!
+}
+
+# ─────────────────────────────────────────────
+# Root Mutation
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Applications
+  createApplication(input: CreateApplicationInput!): Application!
+  updateApplication(id: ID!, input: UpdateApplicationInput!): Application!
+  deleteApplication(id: ID!): DeleteResult!
+
+  # Sandboxes
+  createSandbox(applicationId: ID!, input: CreateSandboxInput!): Sandbox!
+  updateSandbox(applicationId: ID!, sandboxId: ID!, input: UpdateSandboxInput!): Sandbox!
+  deleteSandbox(applicationId: ID!, sandboxId: ID!): DeleteResult!
+  promoteSandbox(applicationId: ID!, sandboxId: ID!): Scan!
+
+  # Findings / Annotations
+  addAnnotation(findingId: ID!, input: AddAnnotationInput!): Annotation!
+  updateFindingStatus(findingId: ID!, input: UpdateFindingStatusInput!): Finding!
+  bulkUpdateFindingStatus(input: BulkUpdateFindingStatusInput!): BulkUpdateResult!
+
+  # Identity
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): DeleteResult!
+  createTeam(input: CreateTeamInput!): Team!
+  updateTeam(id: ID!, input: UpdateTeamInput!): Team!
+  deleteTeam(id: ID!): DeleteResult!
+  createBusinessUnit(input: CreateBusinessUnitInput!): BusinessUnit!
+  updateBusinessUnit(id: ID!, input: UpdateBusinessUnitInput!): BusinessUnit!
+  deleteBusinessUnit(id: ID!): DeleteResult!
+
+  # API Credentials
+  createApiCredential(userId: ID!): ApiCredential!
+  revokeApiCredential(id: ID!): DeleteResult!
+
+  # Reports
+  createReport(input: CreateReportInput!): Report!
+
+  # Collections
+  createCollection(input: CreateCollectionInput!): Collection!
+  updateCollection(id: ID!, input: UpdateCollectionInput!): Collection!
+  deleteCollection(id: ID!): DeleteResult!
+
+  # Policies
+  createPolicy(input: CreatePolicyInput!): Policy!
+  updatePolicy(id: ID!, input: UpdatePolicyInput!): Policy!
+  deletePolicy(id: ID!): DeleteResult!
+}
+
+# ─────────────────────────────────────────────
+# Application Domain
+# ─────────────────────────────────────────────
+
+type Application {
+  id: ID!
+  guid: String!
+  name: String!
+  description: String
+  created: String!
+  modified: String!
+  businessUnit: BusinessUnit
+  owner: User
+  tags: [Tag!]!
+  policy: PolicySummary
+  policyComplianceStatus: PolicyComplianceStatus
+  lastCompletedScanDate: String
+  sandboxes: [Sandbox!]!
+  profiles: [ApplicationProfile!]!
+  findings(filter: FindingFilter, page: Int, size: Int): FindingPage
+  scans(filter: ScanFilter, page: Int, size: Int): ScanPage
+  components(filter: ComponentFilter, page: Int, size: Int): ComponentPage
+}
+
+type ApplicationProfile {
+  id: ID!
+  name: String!
+  businessCriticality: BusinessCriticality!
+  teams: [Team!]!
+  customFields: [CustomField!]!
+}
+
+type ApplicationPage {
+  items: [Application!]!
+  page: PageInfo!
+}
+
+input ApplicationFilter {
+  name: String
+  tag: String
+  businessUnitId: ID
+  policyComplianceStatus: PolicyComplianceStatus
+  modifiedAfter: String
+  scanType: ScanType
+}
+
+input CreateApplicationInput {
+  name: String!
+  description: String
+  businessUnitId: ID
+  ownerId: ID
+  policyId: ID
+  businessCriticality: BusinessCriticality
+  teamIds: [ID!]
+  tags: [String!]
+  customFields: [CustomFieldInput!]
+}
+
+input UpdateApplicationInput {
+  name: String
+  description: String
+  businessUnitId: ID
+  ownerId: ID
+  policyId: ID
+  businessCriticality: BusinessCriticality
+  teamIds: [ID!]
+  tags: [String!]
+  customFields: [CustomFieldInput!]
+}
+
+# ─────────────────────────────────────────────
+# Sandbox Domain
+# ─────────────────────────────────────────────
+
+type Sandbox {
+  id: ID!
+  guid: String!
+  name: String!
+  created: String!
+  modified: String!
+  autoRecreate: Boolean!
+  application: Application!
+  scans(page: Int, size: Int): ScanPage
+  latestScan: Scan
+}
+
+type SandboxPage {
+  items: [Sandbox!]!
+  page: PageInfo!
+}
+
+input CreateSandboxInput {
+  name: String!
+  autoRecreate: Boolean
+}
+
+input UpdateSandboxInput {
+  name: String
+  autoRecreate: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Scan Domain
+# ─────────────────────────────────────────────
+
+type Scan {
+  id: ID!
+  scanType: ScanType!
+  status: ScanStatus!
+  submittedDate: String
+  completedDate: String
+  submittedBy: User
+  applicationId: ID!
+  sandboxId: ID
+  modules: [Module!]!
+  findings(filter: FindingFilter, page: Int, size: Int): FindingPage
+  summary: ScanSummary
+}
+
+type ScanSummary {
+  totalFlaws: Int!
+  affectingPolicyFlaws: Int!
+  criticalCount: Int!
+  highCount: Int!
+  mediumCount: Int!
+  lowCount: Int!
+  informationalCount: Int!
+  newFlaws: Int!
+  fixedFlaws: Int!
+  totalScore: Float
+  analysisRatingText: String
+}
+
+type ScanPage {
+  items: [Scan!]!
+  page: PageInfo!
+}
+
+input ScanFilter {
+  scanType: ScanType
+  status: ScanStatus
+  submittedAfter: String
+  submittedBefore: String
+}
+
+# ─────────────────────────────────────────────
+# Module Domain
+# ─────────────────────────────────────────────
+
+type Module {
+  id: ID!
+  name: String!
+  status: ModuleStatus!
+  platform: String
+  architecture: String
+  score: Float
+  numFlawsSeverity0: Int
+  numFlawsSeverity1: Int
+  numFlawsSeverity2: Int
+  numFlawsSeverity3: Int
+  numFlawsSeverity4: Int
+  numFlawsSeverity5: Int
+  compiler: String
+  operatingSystem: String
+}
+
+# ─────────────────────────────────────────────
+# Finding Domain
+# ─────────────────────────────────────────────
+
+type Finding {
+  id: ID!
+  issueId: Int!
+  title: String!
+  severity: Int!
+  findingStatus: FindingStatus!
+  findingCategory: FindingCategory!
+  scanType: ScanType!
+  cwe: CWE
+  cvss: Float
+  cvssV3: Float
+  exploitability: Int
+  remediationEffort: Int
+  description: String
+  note: String
+  count: Int
+  affectingPolicy: Boolean!
+  mitigationStatus: MitigationStatus
+  annotations: [Annotation!]!
+  location: FindingLocation
+  module: Module
+  fix: FixGuidance
+  firstFoundDate: String
+  lastSeenDate: String
+  resolvedDate: String
+}
+
+type FindingPage {
+  items: [Finding!]!
+  page: PageInfo!
+}
+
+type FindingCategory {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type FindingLocation {
+  filePath: String
+  lineNumber: Int
+  functionName: String
+  qualifier: String
+}
+
+type FixGuidance {
+  description: String
+  codeSnippet: String
+  references: [String!]
+}
+
+input FindingFilter {
+  severity: [Int!]
+  scanType: [ScanType!]
+  cweId: [Int!]
+  findingStatus: [FindingStatus!]
+  mitigationStatus: [MitigationStatus!]
+  affectingPolicy: Boolean
+  newIn: Int
+}
+
+input UpdateFindingStatusInput {
+  status: FindingStatus!
+  comment: String
+}
+
+input BulkUpdateFindingStatusInput {
+  findingIds: [ID!]!
+  status: FindingStatus!
+  comment: String
+}
+
+type BulkUpdateResult {
+  updated: Int!
+  failed: Int!
+  errors: [String!]
+}
+
+# ─────────────────────────────────────────────
+# CWE Domain
+# ─────────────────────────────────────────────
+
+type CWE {
+  id: Int!
+  name: String!
+  description: String
+  severity: Int
+  href: String
+}
+
+# ─────────────────────────────────────────────
+# Annotation Domain
+# ─────────────────────────────────────────────
+
+type Annotation {
+  id: ID!
+  action: AnnotationAction!
+  comment: String
+  created: String!
+  user: User
+  approvalStatus: ApprovalStatus
+  approvedBy: User
+  approvedDate: String
+}
+
+type AnnotationPage {
+  items: [Annotation!]!
+  page: PageInfo!
+}
+
+input AddAnnotationInput {
+  action: AnnotationAction!
+  comment: String!
+  proposedMitigation: String
+}
+
+# ─────────────────────────────────────────────
+# Policy Domain
+# ─────────────────────────────────────────────
+
+type Policy {
+  id: ID!
+  guid: String!
+  name: String!
+  description: String
+  created: String!
+  modified: String!
+  type: PolicyType!
+  vendorPolicy: Boolean!
+  scanFrequencyRules: [ScanFrequencyRule!]!
+  findingRules: [FindingRule!]!
+  gracePeriodDays: Int
+  scanningFrequency: ScanningFrequency
+  customSeverities: [CustomSeverity!]!
+  applications: [Application!]!
+}
+
+type PolicySummary {
+  id: ID!
+  name: String!
+  type: PolicyType!
+}
+
+type PolicyPage {
+  items: [Policy!]!
+  page: PageInfo!
+}
+
+type ScanFrequencyRule {
+  scanType: ScanType!
+  frequencyIntervalDays: Int!
+  mustHaveScanInLastDays: Boolean!
+}
+
+type FindingRule {
+  type: String!
+  value: String
+  duration: Int
+  scanType: [ScanType!]
+}
+
+type CustomSeverity {
+  cweId: Int!
+  severity: Int!
+}
+
+input CreatePolicyInput {
+  name: String!
+  description: String
+  scanFrequencyRules: [ScanFrequencyRuleInput!]
+  findingRules: [FindingRuleInput!]
+  gracePeriodDays: Int
+}
+
+input UpdatePolicyInput {
+  name: String
+  description: String
+  scanFrequencyRules: [ScanFrequencyRuleInput!]
+  findingRules: [FindingRuleInput!]
+  gracePeriodDays: Int
+}
+
+input ScanFrequencyRuleInput {
+  scanType: ScanType!
+  frequencyIntervalDays: Int!
+  mustHaveScanInLastDays: Boolean
+}
+
+input FindingRuleInput {
+  type: String!
+  value: String
+  duration: Int
+  scanType: [ScanType!]
+}
+
+# ─────────────────────────────────────────────
+# Identity Domain
+# ─────────────────────────────────────────────
+
+type User {
+  id: ID!
+  userId: String!
+  firstName: String!
+  lastName: String!
+  emailAddress: String!
+  userName: String!
+  active: Boolean!
+  created: String!
+  modified: String!
+  roles: [Role!]!
+  teams: [Team!]!
+  samlSubject: String
+  allowedIpAddresses: [String!]
+  loginEnabled: Boolean!
+  apiServiceAccount: Boolean!
+}
+
+type UserPage {
+  items: [User!]!
+  page: PageInfo!
+}
+
+input UserFilter {
+  emailAddress: String
+  userName: String
+  teamId: ID
+  roleId: ID
+  active: Boolean
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  emailAddress: String!
+  userName: String!
+  roleIds: [ID!]!
+  teamIds: [ID!]
+  loginEnabled: Boolean
+  apiServiceAccount: Boolean
+  allowedIpAddresses: [String!]
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  emailAddress: String
+  roleIds: [ID!]
+  teamIds: [ID!]
+  loginEnabled: Boolean
+  allowedIpAddresses: [String!]
+}
+
+type Team {
+  id: ID!
+  teamId: String!
+  teamName: String!
+  relationship: String
+  members: [User!]!
+  businessUnit: BusinessUnit
+  created: String
+  modified: String
+}
+
+type TeamPage {
+  items: [Team!]!
+  page: PageInfo!
+}
+
+input CreateTeamInput {
+  teamName: String!
+  businessUnitId: ID
+  memberIds: [ID!]
+}
+
+input UpdateTeamInput {
+  teamName: String
+  businessUnitId: ID
+  memberIds: [ID!]
+}
+
+type BusinessUnit {
+  id: ID!
+  name: String!
+  teams: [Team!]!
+  applications: [Application!]!
+  created: String
+  modified: String
+}
+
+type BusinessUnitPage {
+  items: [BusinessUnit!]!
+  page: PageInfo!
+}
+
+input CreateBusinessUnitInput {
+  name: String!
+}
+
+input UpdateBusinessUnitInput {
+  name: String!
+}
+
+type Role {
+  id: ID!
+  roleName: String!
+  roleDescription: String
+  isApi: Boolean!
+  isScanType: Boolean!
+}
+
+type ApiCredential {
+  id: ID!
+  apiId: String!
+  apiKey: String
+  userId: ID!
+  createdDate: String!
+  expirationDate: String
+  active: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# SCA / Component Domain
+# ─────────────────────────────────────────────
+
+type Component {
+  id: ID!
+  componentId: String!
+  fileName: String!
+  version: String
+  description: String
+  licenses: [License!]!
+  vulnerabilities: [Vulnerability!]!
+  outdated: Boolean!
+  blacklisted: Boolean!
+  violations: [ComponentViolation!]!
+  latestVersion: String
+  addedDate: String
+}
+
+type ComponentPage {
+  items: [Component!]!
+  page: PageInfo!
+}
+
+input ComponentFilter {
+  blacklisted: Boolean
+  outdated: Boolean
+  violationsOnly: Boolean
+  licenseRisk: LicenseRisk
+}
+
+type Vulnerability {
+  cve: String!
+  cvss2Score: Float
+  cvss3Score: Float
+  cvss3Vector: String
+  severity: VulnerabilitySeverity!
+  summary: String
+  cwe: CWE
+  publishedDate: String
+  updatedDate: String
+  references: [VulnerabilityReference!]!
+}
+
+type VulnerabilityReference {
+  name: String!
+  url: String!
+}
+
+type License {
+  id: ID!
+  name: String!
+  spdxId: String
+  riskRating: LicenseRisk!
+  url: String
+}
+
+type ComponentViolation {
+  type: String!
+  message: String!
+  severity: Int
+}
+
+# ─────────────────────────────────────────────
+# Report Domain
+# ─────────────────────────────────────────────
+
+type Report {
+  id: ID!
+  reportType: ReportType!
+  status: ReportStatus!
+  created: String!
+  modified: String!
+  downloadUrl: String
+  filter: ReportFilter
+  expiresAt: String
+}
+
+type ReportPage {
+  items: [Report!]!
+  page: PageInfo!
+}
+
+input ReportFilter {
+  reportType: ReportType
+  status: ReportStatus
+  createdAfter: String
+  createdBefore: String
+  applicationId: ID
+}
+
+input CreateReportInput {
+  reportType: ReportType!
+  applicationId: ID
+  startDate: String
+  endDate: String
+  scanType: [ScanType!]
+  severity: [Int!]
+  policyComplianceStatus: PolicyComplianceStatus
+}
+
+# ─────────────────────────────────────────────
+# Collection Domain
+# ─────────────────────────────────────────────
+
+type Collection {
+  id: ID!
+  guid: String!
+  name: String!
+  description: String
+  created: String!
+  modified: String!
+  assetType: CollectionAssetType!
+  assets: [CollectionAsset!]!
+  policyComplianceStatus: PolicyComplianceStatus
+  tags: [Tag!]!
+}
+
+type CollectionPage {
+  items: [Collection!]!
+  page: PageInfo!
+}
+
+type CollectionAsset {
+  id: ID!
+  type: CollectionAssetType!
+  name: String!
+}
+
+input CreateCollectionInput {
+  name: String!
+  description: String
+  assetType: CollectionAssetType!
+  assetIds: [ID!]!
+  tags: [String!]
+}
+
+input UpdateCollectionInput {
+  name: String
+  description: String
+  assetIds: [ID!]
+  tags: [String!]
+}
+
+# ─────────────────────────────────────────────
+# Audit Log Domain
+# ─────────────────────────────────────────────
+
+type AuditEvent {
+  id: ID!
+  eventType: String!
+  action: String!
+  actor: User
+  targetType: String
+  targetId: String
+  targetName: String
+  timestamp: String!
+  ipAddress: String
+  details: String
+}
+
+type AuditEventPage {
+  items: [AuditEvent!]!
+  page: PageInfo!
+}
+
+input AuditEventFilter {
+  eventType: String
+  actorId: ID
+  targetType: String
+  startDate: String
+  endDate: String
+}
+
+# ─────────────────────────────────────────────
+# Workflow Domain
+# ─────────────────────────────────────────────
+
+type WorkflowAction {
+  id: ID!
+  type: WorkflowActionType!
+  name: String!
+  enabled: Boolean!
+  trigger: WorkflowTrigger!
+  applicationId: ID!
+  configuration: String
+  createdDate: String!
+  modifiedDate: String!
+}
+
+type WorkflowTrigger {
+  event: WorkflowEvent!
+  conditions: [WorkflowCondition!]!
+}
+
+type WorkflowCondition {
+  field: String!
+  operator: String!
+  value: String!
+}
+
+# ─────────────────────────────────────────────
+# Shared / Support Types
+# ─────────────────────────────────────────────
+
+type Tag {
+  id: ID!
+  name: String!
+}
+
+type CustomField {
+  name: String!
+  value: String
+}
+
+input CustomFieldInput {
+  name: String!
+  value: String
+}
+
+type PageInfo {
+  number: Int!
+  size: Int!
+  totalElements: Int!
+  totalPages: Int!
+}
+
+type DeleteResult {
+  success: Boolean!
+  id: ID
+}
+
+type ScanningFrequency {
+  interval: Int!
+  unit: FrequencyUnit!
+}
+
+# ─────────────────────────────────────────────
+# Enumerations
+# ─────────────────────────────────────────────
+
+enum ScanType {
+  STATIC
+  DYNAMIC
+  MANUAL
+  SCA
+}
+
+enum ScanStatus {
+  INCOMPLETE
+  NOT_SUBMITTED
+  SUBMITTED_TO_ENGINE
+  SCANNING
+  PRESCAN_SUBMITTED
+  PRESCAN_SUCCESS
+  PRESCAN_FAILED
+  SCAN_IN_PROCESS
+  SCAN_ON_HOLD
+  VENDOR_REVIEWING
+  RESULTS_READY
+  NO_MODULES_DEFINED
+  FAILED
+  CANCELLED
+}
+
+enum FindingStatus {
+  OPEN
+  CLOSED
+  FIXED
+  MITIGATED
+  PROPOSED_MITIGATED
+  REJECTED
+}
+
+enum MitigationStatus {
+  NONE
+  PROPOSED
+  APPROVED
+  REJECTED
+  AUTOMATED
+}
+
+enum PolicyComplianceStatus {
+  PASSED
+  CONDITIONAL_PASS
+  DID_NOT_PASS
+  NOT_ASSESSED
+  CALCULATING
+}
+
+enum BusinessCriticality {
+  VERY_HIGH
+  HIGH
+  MEDIUM
+  LOW
+  VERY_LOW
+}
+
+enum PolicyType {
+  CUSTOMER
+  VENDOR
+  BUILTIN
+}
+
+enum AnnotationAction {
+  COMMENT
+  MITIGATE
+  FALSE_POSITIVE
+  ACCEPT_RISK
+  REMEDIATED
+  POTENTIAL_FALSE_POSITIVE
+}
+
+enum ApprovalStatus {
+  NONE
+  APPROVED
+  REJECTED
+}
+
+enum ReportType {
+  FINDINGS
+  SCAN_RESULTS
+  DELETED_SCAN_RESULTS
+  AUDIT_EVENTS
+  SCA_FINDINGS
+}
+
+enum ReportStatus {
+  PENDING
+  PROCESSING
+  READY
+  FAILED
+  EXPIRED
+}
+
+enum ModuleStatus {
+  OK
+  MISSING_SUPPORTING_FILES
+  MISSING_PDB_FILE
+  PARTIAL
+  UNSUPPORTED
+}
+
+enum VulnerabilitySeverity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFORMATIONAL
+}
+
+enum LicenseRisk {
+  HIGH
+  MEDIUM
+  LOW
+  UNRESOLVED
+  NA
+}
+
+enum CollectionAssetType {
+  APPLICATION
+}
+
+enum FrequencyUnit {
+  DAY
+  WEEK
+  MONTH
+}
+
+enum WorkflowActionType {
+  JIRA
+  SLACK
+  EMAIL
+  WEBHOOK
+}
+
+enum WorkflowEvent {
+  SCAN_COMPLETED
+  POLICY_CHANGED
+  FLAW_CREATED
+  FLAW_RESOLVED
+  ANNOTATION_CREATED
+}
