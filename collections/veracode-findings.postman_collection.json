@@ -1,0 +1,1217 @@
+{
+  "item": [
+    {
+      "id": "2870f92c-eb99-4387-85e0-6b08051f439d",
+      "name": "Findings",
+      "description": {
+        "content": "Application security findings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "573e27b4-d431-432b-90a8-07f4ff0bce24",
+          "name": "List Findings",
+          "request": {
+            "name": "List Findings",
+            "description": {
+              "content": "Retrieves security findings for an application. Supports filtering by CWE, severity, scan type, CVSS score, policy violations, and annotation status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                ":applicationGuid",
+                "findings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scan_type",
+                  "value": "<string>",
+                  "description": "Filter by scan type"
+                },
+                {
+                  "disabled": false,
+                  "key": "scan_type",
+                  "value": "<string>",
+                  "description": "Filter by scan type"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity",
+                  "value": "<integer>",
+                  "description": "Filter by severity level (0=Informational, 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High)"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity_gte",
+                  "value": "<integer>",
+                  "description": "Filter findings with severity greater than or equal to this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "cwe",
+                  "value": "<string>",
+                  "description": "Filter by CWE ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "cvss_gte",
+                  "value": "<number>",
+                  "description": "Filter findings with CVSS score greater than or equal to this value"
+                },
+                {
+                  "disabled": false,
+                  "key": "violates_policy",
+                  "value": "<boolean>",
+                  "description": "Filter to only policy-violating findings"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_annot",
+                  "value": "false",
+                  "description": "Include annotation data in response"
+                },
+                {
+                  "disabled": false,
+                  "key": "new",
+                  "value": "<boolean>",
+                  "description": "Filter to only new findings"
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "Sandbox GUID for sandbox-specific findings"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) Application unique identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a460ad1-1516-4009-903a-7f7fad62fef0",
+              "name": "List of findings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "severity_gte",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cwe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cvss_gte",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "violates_policy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_annot",
+                      "value": "false"
+                    },
+                    {
+                      "key": "new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Application unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"findings\": [\n      {\n        \"issue_id\": 4755,\n        \"scan_type\": \"MANUAL\",\n        \"severity\": 2,\n        \"cwe\": {\n          \"id\": 1945,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"CLOSED\",\n          \"new\": false,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"2010-09-18T15:44:39.638Z\",\n          \"last_seen_date\": \"2012-02-14T16:08:49.797Z\"\n        },\n        \"violates_policy\": true,\n        \"cvss\": 2565.464553163106,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"2012-06-29T10:31:50.738Z\",\n            \"modified\": \"2011-02-26T07:07:12.869Z\"\n          },\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"1983-01-27T09:48:20.577Z\",\n            \"modified\": \"1966-01-02T01:27:03.349Z\"\n          }\n        ]\n      },\n      {\n        \"issue_id\": 423,\n        \"scan_type\": \"SCA\",\n        \"severity\": 0,\n        \"cwe\": {\n          \"id\": 5102,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"MITIGATED\",\n          \"new\": true,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"1998-10-11T09:42:52.081Z\",\n          \"last_seen_date\": \"1947-03-18T00:10:43.635Z\"\n        },\n        \"violates_policy\": true,\n        \"cvss\": 242.90497052996795,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"1962-07-20T15:00:09.028Z\",\n            \"modified\": \"1985-04-24T22:29:33.022Z\"\n          },\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"2022-09-21T21:32:50.555Z\",\n            \"modified\": \"1949-08-29T00:49:11.175Z\"\n          }\n        ]\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 16,\n    \"total_pages\": 4074,\n    \"size\": 8073,\n    \"number\": 8173\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb274b0d-d4c2-4fa0-a4ad-ce27c4f3f12d",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "severity_gte",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cwe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cvss_gte",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "violates_policy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_annot",
+                      "value": "false"
+                    },
+                    {
+                      "key": "new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Application unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fc09091-e425-49a0-9eab-7efa5fa51634",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scan_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "severity_gte",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cwe",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cvss_gte",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "violates_policy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_annot",
+                      "value": "false"
+                    },
+                    {
+                      "key": "new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Application unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8373a25d-a529-4479-9d77-7480943722cb",
+          "name": "Get Dynamic Flaw Info",
+          "request": {
+            "name": "Get Dynamic Flaw Info",
+            "description": {
+              "content": "Returns detailed information for a Dynamic Analysis vulnerability finding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                ":applicationGuid",
+                "findings",
+                ":issueId",
+                "dynamic_flaw_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "issueId",
+                  "description": "(Required) Finding issue ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c270d8f6-5550-4150-8a5e-033373cf349c",
+              "name": "Dynamic flaw details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":issueId",
+                    "dynamic_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "issueId",
+                      "description": "(Required) Finding issue ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\",\n  \"http_transaction\": {\n    \"request\": \"string\",\n    \"response\": \"string\"\n  },\n  \"exploit_evidence\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3016a9e5-35e7-48cc-a424-df3b8591f8e5",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":issueId",
+                    "dynamic_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "issueId",
+                      "description": "(Required) Finding issue ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a59e9518-f8fe-4222-840d-1ef1941641c5",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":issueId",
+                    "dynamic_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "issueId",
+                      "description": "(Required) Finding issue ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "886c6d87-e2f8-45c6-ac4b-7964fe985537",
+          "name": "Get Static Flaw Info",
+          "request": {
+            "name": "Get Static Flaw Info",
+            "description": {
+              "content": "Returns static analysis flaw data and code paths for a finding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                ":applicationGuid",
+                "findings",
+                ":findingId",
+                "static_flaw_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "findingId",
+                  "description": "(Required) Finding unique identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bfffd29-5c4f-4dc8-9480-24d910112106",
+              "name": "Static flaw details with code paths",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":findingId",
+                    "static_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "findingId",
+                      "description": "(Required) Finding unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data_paths\": [\n    {\n      \"file_path\": \"string\",\n      \"line_number\": 4152,\n      \"file_name\": \"string\"\n    },\n    {\n      \"file_path\": \"string\",\n      \"line_number\": 1762,\n      \"file_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ba1dff-a0d5-4c55-b11b-4c241684c54a",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":findingId",
+                    "static_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "findingId",
+                      "description": "(Required) Finding unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7a869e2-72a9-4584-a934-6f24c14afd26",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    ":applicationGuid",
+                    "findings",
+                    ":findingId",
+                    "static_flaw_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "findingId",
+                      "description": "(Required) Finding unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2ae239cb-8a6d-4ef2-990d-4692e6d8a15f",
+      "name": "Manual Penetration Testing",
+      "description": {
+        "content": "Manual penetration test findings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3516ea4-8eff-48f4-9d98-78c0ebbd2297",
+          "name": "List Manual Penetration Test Scans",
+          "request": {
+            "name": "List Manual Penetration Test Scans",
+            "description": {
+              "content": "Returns a list of Manual Penetration Testing scan records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                "mpt",
+                "v1",
+                "scans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c06b0433-46fd-4962-9a95-867296eb1d25",
+              "name": "List of MPT scans",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"scans\": [\n      {\n        \"scan_id\": \"string\",\n        \"status\": \"string\",\n        \"start_date\": \"1961-02-18T12:15:13.656Z\",\n        \"end_date\": \"2006-10-09T08:29:45.629Z\"\n      },\n      {\n        \"scan_id\": \"string\",\n        \"status\": \"string\",\n        \"start_date\": \"1967-03-18T19:52:02.207Z\",\n        \"end_date\": \"1960-01-19T22:33:38.576Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 8784,\n    \"total_pages\": 6140,\n    \"size\": 9244,\n    \"number\": 5341\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ec3ccb0-2b30-49a2-bc28-174393dc5527",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb23645f-a263-4a28-a32b-b8242d82d83d",
+          "name": "List Manual Penetration Test Findings",
+          "request": {
+            "name": "List Manual Penetration Test Findings",
+            "description": {
+              "content": "Returns findings from a specific Manual Penetration Testing scan.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                "mpt",
+                "v1",
+                "scans",
+                ":scanId",
+                "findings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scanId",
+                  "description": "(Required) MPT scan identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05923fdd-2504-4cd2-aaba-78c64699d5fa",
+              "name": "MPT scan findings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"findings\": [\n      {\n        \"issue_id\": 4755,\n        \"scan_type\": \"MANUAL\",\n        \"severity\": 2,\n        \"cwe\": {\n          \"id\": 1945,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"CLOSED\",\n          \"new\": false,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"2010-09-18T15:44:39.638Z\",\n          \"last_seen_date\": \"2012-02-14T16:08:49.797Z\"\n        },\n        \"violates_policy\": true,\n        \"cvss\": 2565.464553163106,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"2012-06-29T10:31:50.738Z\",\n            \"modified\": \"2011-02-26T07:07:12.869Z\"\n          },\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"1983-01-27T09:48:20.577Z\",\n            \"modified\": \"1966-01-02T01:27:03.349Z\"\n          }\n        ]\n      },\n      {\n        \"issue_id\": 423,\n        \"scan_type\": \"SCA\",\n        \"severity\": 0,\n        \"cwe\": {\n          \"id\": 5102,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"MITIGATED\",\n          \"new\": true,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"1998-10-11T09:42:52.081Z\",\n          \"last_seen_date\": \"1947-03-18T00:10:43.635Z\"\n        },\n        \"violates_policy\": true,\n        \"cvss\": 242.90497052996795,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"1962-07-20T15:00:09.028Z\",\n            \"modified\": \"1985-04-24T22:29:33.022Z\"\n          },\n          {\n            \"action\": \"COMMENT\",\n            \"comment\": \"string\",\n            \"created\": \"2022-09-21T21:32:50.555Z\",\n            \"modified\": \"1949-08-29T00:49:11.175Z\"\n          }\n        ]\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 16,\n    \"total_pages\": 4074,\n    \"size\": 8073,\n    \"number\": 8173\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0faa544f-f804-455c-ae1a-802924324c95",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ee4b258-7146-4cbd-abb7-507a06ce1cb4",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 4324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8898303e-f857-487d-a7b6-19a172bba9c9",
+    "name": "Veracode Findings REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Findings REST API retrieves security findings from static analysis (SAST), dynamic analysis (DAST), manual penetration testing (MPT), and software composition analysis (SCA) scans. Supports filtering by CWE, severity, scan type, CVSS score, policy violations, and annotation status. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

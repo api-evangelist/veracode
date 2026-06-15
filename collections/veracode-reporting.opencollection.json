@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Reporting REST API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/appsec/v1/analytics/report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a report generation request. Returns a report ID to use with the GET endpoint to retrieve results once processing is complete. Report types include FINDINGS, SCANS, DELETEDSCANS, and AUDIT."
+        },
+        {
+          "info": {
+            "name": "Get Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v1/analytics/report/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "Report ID from the generate report response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves the results of a report by ID. Poll this endpoint until the status is COMPLETED. Returns paginated findings or scan data depending on report type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

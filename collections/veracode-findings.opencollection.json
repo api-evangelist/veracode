@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Findings REST API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Findings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Findings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/:applicationGuid/findings",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Application unique identifier"
+              },
+              {
+                "name": "scan_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scan type"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Filter by severity level (0=Informational, 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High)"
+              },
+              {
+                "name": "severity_gte",
+                "value": "",
+                "type": "query",
+                "description": "Filter findings with severity greater than or equal to this value"
+              },
+              {
+                "name": "cwe",
+                "value": "",
+                "type": "query",
+                "description": "Filter by CWE ID"
+              },
+              {
+                "name": "cvss_gte",
+                "value": "",
+                "type": "query",
+                "description": "Filter findings with CVSS score greater than or equal to this value"
+              },
+              {
+                "name": "violates_policy",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only policy-violating findings"
+              },
+              {
+                "name": "include_annot",
+                "value": "",
+                "type": "query",
+                "description": "Include annotation data in response"
+              },
+              {
+                "name": "new",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only new findings"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Sandbox GUID for sandbox-specific findings"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves security findings for an application. Supports filtering by CWE, severity, scan type, CVSS score, policy violations, and annotation status."
+        },
+        {
+          "info": {
+            "name": "Get Dynamic Flaw Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/:applicationGuid/findings/:issueId/dynamic_flaw_info",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "issueId",
+                "value": "",
+                "type": "path",
+                "description": "Finding issue ID"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a Dynamic Analysis vulnerability finding."
+        },
+        {
+          "info": {
+            "name": "Get Static Flaw Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/:applicationGuid/findings/:findingId/static_flaw_info",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "findingId",
+                "value": "",
+                "type": "path",
+                "description": "Finding unique identifier"
+              }
+            ]
+          },
+          "docs": "Returns static analysis flaw data and code paths for a finding."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Manual Penetration Testing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Manual Penetration Test Scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/mpt/v1/scans"
+          },
+          "docs": "Returns a list of Manual Penetration Testing scan records."
+        },
+        {
+          "info": {
+            "name": "List Manual Penetration Test Findings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/mpt/v1/scans/:scanId/findings",
+            "params": [
+              {
+                "name": "scanId",
+                "value": "",
+                "type": "path",
+                "description": "MPT scan identifier"
+              }
+            ]
+          },
+          "docs": "Returns findings from a specific Manual Penetration Testing scan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,361 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Identity REST API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/users",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all users in the organization. Paginated, max 20 per page."
+        },
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/api/authn/v2/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user or API service account in the organization."
+        },
+        {
+          "info": {
+            "name": "Search Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/users/search",
+            "params": [
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "api_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "saml_user",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search users by term, API ID, role, type, or SAML status."
+        },
+        {
+          "info": {
+            "name": "Get Current User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/users/self"
+          },
+          "docs": "Returns the current authenticated user's principal details."
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.veracode.com/api/authn/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User unique identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user account."
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.veracode.com/api/authn/v2/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User unique identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a user account from the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Credentials",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API Credential Expiration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/api_credentials"
+          },
+          "docs": "Returns the expiration date for the current user's API credentials."
+        },
+        {
+          "info": {
+            "name": "Generate API Credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/api/authn/v2/api_credentials"
+          },
+          "docs": "Generates new API credentials for the current user."
+        },
+        {
+          "info": {
+            "name": "Get API Credential",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/api_credentials/:apiCredsId",
+            "params": [
+              {
+                "name": "apiCredsId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns expiration details for a specific API credential."
+        },
+        {
+          "info": {
+            "name": "Revoke API Credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.veracode.com/api/authn/v2/api_credentials/:apiCredsId",
+            "params": [
+              {
+                "name": "apiCredsId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a set of API credentials."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/teams"
+          },
+          "docs": "Returns all teams in the organization."
+        },
+        {
+          "info": {
+            "name": "Create Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/api/authn/v2/teams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new team in the organization."
+        },
+        {
+          "info": {
+            "name": "Get Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team unique identifier"
+              }
+            ]
+          },
+          "docs": "Returns details for a specific team."
+        },
+        {
+          "info": {
+            "name": "Update Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.veracode.com/api/authn/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team unique identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing team."
+        },
+        {
+          "info": {
+            "name": "Delete Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.veracode.com/api/authn/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team unique identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a team from the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Units",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Business Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/business_units"
+          },
+          "docs": "Returns all business units in the organization."
+        },
+        {
+          "info": {
+            "name": "Create Business Unit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/api/authn/v2/business_units",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new business unit."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/roles"
+          },
+          "docs": "Returns all available roles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
