@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/veracode-applications-openapi.yml, openapi/veracode-findings-openapi.yml, openapi/veracode-identity-openapi.yml,
+  openapi/veracode-reporting-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: HmacAuth
+  type: http
+  scheme: veracode_hmac
+  description: HMAC authentication with Veracode API ID and key credentials
+  sources:
+  - openapi/veracode-applications-openapi.yml
+  - openapi/veracode-findings-openapi.yml
+  - openapi/veracode-identity-openapi.yml
+  - openapi/veracode-reporting-openapi.yml
