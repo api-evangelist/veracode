@@ -2,11 +2,11 @@
   "repo": "veracode",
   "feeds": [
     {
-      "source": "https://www.veracode.com/blog",
+      "source": "https://www.veracode.com/blog/feed/",
       "feed_url": "https://www.veracode.com/blog/feed/",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "feed"
     },
     {
       "source": "https://veracode.github.io/",
@@ -17,5 +17,5 @@
     }
   ],
   "post_count": 3,
-  "fetched": "2026-06-27T12:03:07Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
