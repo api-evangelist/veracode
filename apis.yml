@@ -100,6 +100,8 @@ apis:
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/openapi/veracode-reporting-openapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/veracode-agentic-access.yml
 - type: TrustCenter
   url: security/veracode-trust-center.yml
 - type: VulnerabilityDisclosure
