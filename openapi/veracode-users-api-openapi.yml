@@ -1,0 +1,336 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Users API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Users
+  description: User and API service account management
+paths:
+  /api/authn/v2/users:
+    get:
+      operationId: listUsers
+      summary: List Users
+      description: Returns all users in the organization. Paginated, max 20 per page.
+      tags:
+      - Users
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createUser
+      summary: Create User
+      description: Creates a new user or API service account in the organization.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/search:
+    get:
+      operationId: searchUsers
+      summary: Search Users
+      description: Search users by term, API ID, role, type, or SAML status.
+      tags:
+      - Users
+      parameters:
+      - name: search_term
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: api_id
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: role_id
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: user_type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - HUMAN
+          - API
+      - name: saml_user
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/self:
+    get:
+      operationId: getCurrentUser
+      summary: Get Current User
+      description: Returns the current authenticated user's principal details.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Current user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/users/{userId}:
+    put:
+      operationId: updateUser
+      summary: Update User
+      description: Updates an existing user account.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUser
+      summary: Delete User
+      description: Deletes a user account from the organization.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '204':
+          description: User deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    Role:
+      type: object
+      properties:
+        role_id:
+          type: string
+        role_name:
+          type: string
+        role_description:
+          type: string
+        is_scan_type:
+          type: boolean
+    Team:
+      type: object
+      properties:
+        team_id:
+          type: string
+        team_name:
+          type: string
+        relationship:
+          type: object
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+        user_name:
+          type: string
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        user_type:
+          type: string
+          enum:
+          - HUMAN
+          - API
+        active:
+          type: boolean
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    UserProfile:
+      type: object
+      properties:
+        email_address:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        user_type:
+          type: string
+          enum:
+          - HUMAN
+          - API
+        roles:
+          type: array
+          items:
+            type: object
+            properties:
+              role_name:
+                type: string
+        teams:
+          type: array
+          items:
+            type: object
+            properties:
+              team_id:
+                type: string
+    UsersPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            users:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+  parameters:
+    UserId:
+      name: userId
+      in: path
+      required: true
+      description: User unique identifier
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions for this operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials

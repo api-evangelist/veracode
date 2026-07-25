@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Policy Evaluations API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Policy Evaluations
+  description: Application policy compliance evaluations
+paths:
+  /appsec/v1/applications/{applicationGuid}/policy_compliance:
+    get:
+      operationId: getApplicationPolicyCompliance
+      summary: Get Application Policy Compliance
+      description: Returns the policy compliance evaluation status for an application.
+      tags:
+      - Policy Evaluations
+      parameters:
+      - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '200':
+          description: Policy compliance status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyCompliance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    ApplicationGuid:
+      name: applicationGuid
+      in: path
+      required: true
+      description: Unique application identifier (GUID)
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    PolicyCompliance:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        policy_compliance_status:
+          type: string
+          enum:
+          - PASSED
+          - DID_NOT_PASS
+          - CONDITIONAL_PASS
+          - NOT_ASSESSED
+          - CALCULATING
+        last_policy_compliance_check_date:
+          type: string
+          format: date-time
+        policy_name:
+          type: string
+        teams_passed:
+          type: boolean
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials

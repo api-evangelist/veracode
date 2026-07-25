@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Roles API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Roles
+  description: Role and permission management
+paths:
+  /api/authn/v2/roles:
+    get:
+      operationId: listRoles
+      summary: List Roles
+      description: Returns all available roles.
+      tags:
+      - Roles
+      responses:
+        '200':
+          description: List of roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolesPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    Role:
+      type: object
+      properties:
+        role_id:
+          type: string
+        role_name:
+          type: string
+        role_description:
+          type: string
+        is_scan_type:
+          type: boolean
+    RolesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            roles:
+              type: array
+              items:
+                $ref: '#/components/schemas/Role'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials

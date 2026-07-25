@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Sandboxes API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Sandboxes
+  description: Development sandbox management
+paths:
+  /appsec/v1/applications/{applicationGuid}/sandboxes:
+    get:
+      operationId: listSandboxes
+      summary: List Sandboxes
+      description: Returns all development sandboxes for a given application.
+      tags:
+      - Sandboxes
+      parameters:
+      - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '200':
+          description: List of sandboxes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxesPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createSandbox
+      summary: Create Sandbox
+      description: Creates a new development sandbox for an application.
+      tags:
+      - Sandboxes
+      parameters:
+      - $ref: '#/components/parameters/ApplicationGuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxProfile'
+      responses:
+        '200':
+          description: Sandbox created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    Sandbox:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+        auto_recreate:
+          type: boolean
+        custom_fields:
+          type: array
+          items:
+            type: object
+    SandboxesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            sandboxes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sandbox'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    SandboxProfile:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Sandbox name
+        auto_recreate:
+          type: boolean
+          default: false
+        custom_fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+  parameters:
+    ApplicationGuid:
+      name: applicationGuid
+      in: path
+      required: true
+      description: Unique application identifier (GUID)
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials

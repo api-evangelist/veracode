@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Business Units API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Business Units
+  description: Business unit management
+paths:
+  /api/authn/v2/business_units:
+    get:
+      operationId: listBusinessUnits
+      summary: List Business Units
+      description: Returns all business units in the organization.
+      tags:
+      - Business Units
+      responses:
+        '200':
+          description: List of business units
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessUnitsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBusinessUnit
+      summary: Create Business Unit
+      description: Creates a new business unit.
+      tags:
+      - Business Units
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessUnitProfile'
+      responses:
+        '200':
+          description: Business unit created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessUnit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    BusinessUnit:
+      type: object
+      properties:
+        bu_id:
+          type: string
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+    BusinessUnitProfile:
+      type: object
+      properties:
+        name:
+          type: string
+    BusinessUnitsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            business_units:
+              type: array
+              items:
+                $ref: '#/components/schemas/BusinessUnit'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials

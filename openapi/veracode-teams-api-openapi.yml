@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API Credentials Teams API
+  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+- url: https://api.veracode.com
+  description: Veracode Commercial Region API
+security:
+- HmacAuth: []
+tags:
+- name: Teams
+  description: Team management
+paths:
+  /api/authn/v2/teams:
+    get:
+      operationId: listTeams
+      summary: List Teams
+      description: Returns all teams in the organization.
+      tags:
+      - Teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTeam
+      summary: Create Team
+      description: Creates a new team in the organization.
+      tags:
+      - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamProfile'
+      responses:
+        '200':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/authn/v2/teams/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Get Team
+      description: Returns details for a specific team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTeam
+      summary: Update Team
+      description: Updates an existing team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamProfile'
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteTeam
+      summary: Delete Team
+      description: Deletes a team from the organization.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      responses:
+        '204':
+          description: Team deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    TeamsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            teams:
+              type: array
+              items:
+                $ref: '#/components/schemas/Team'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    TeamProfile:
+      type: object
+      properties:
+        team_name:
+          type: string
+        relationship:
+          type: object
+          properties:
+            name:
+              type: string
+    Team:
+      type: object
+      properties:
+        team_id:
+          type: string
+        team_name:
+          type: string
+        relationship:
+          type: object
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+  parameters:
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Team unique identifier
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials
