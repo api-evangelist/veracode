@@ -8,9 +8,22 @@ description: Veracode is an application security testing (AST) platform offering
   All REST APIs use HMAC authentication with API ID/key credentials and return JSON
   responses following OpenAPI standards.
 type: Index
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/veracode.png
 tags:
 - Application Security
 - SAST
@@ -23,82 +36,226 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
+- aid: veracode:veracode-api-credentials-api
+  name: Veracode API Credentials API
+  description: API credential lifecycle management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - API Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-api-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
 - aid: veracode:veracode-applications-api
-  name: Veracode Applications REST API
-  description: The Applications REST API provides access to all applications in a
-    Veracode portfolio, including application profiles, policy evaluations, sandboxes,
-    and compliance status. Enables programmatic creation, update, deletion, and querying
-    of application profiles with filtering by name, tag, business unit, scan type,
-    policy compliance, and modified date.
+  name: Veracode Applications API
+  description: Application profile management
   humanURL: https://docs.veracode.com/r/c_apps_intro
   baseURL: https://api.veracode.com
   tags:
   - Applications
-  - Portfolio
-  - Policy
-  - Sandboxes
   properties:
+  - type: OpenAPI
+    url: openapi/veracode-applications-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/openapi/veracode-applications-openapi.yml
-  - url: graphql/veracode-graphql.md
-    type: GraphQL
-- aid: veracode:veracode-findings-api
-  name: Veracode Findings REST API
-  description: The Findings REST API retrieves security findings from static, dynamic,
-    manual penetration testing, and SCA scans for applications. Supports filtering
-    by CWE, severity, scan type, CVSS score, policy compliance, and annotation status.
-    Also provides access to flaw info and MPT scan results.
-  humanURL: https://docs.veracode.com/r/c_findings_v2_intro
-  baseURL: https://api.veracode.com
-  tags:
-  - Findings
-  - Vulnerabilities
-  - SAST
-  - DAST
-  - SCA
-  properties:
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/openapi/veracode-findings-openapi.yml
-- aid: veracode:veracode-identity-api
-  name: Veracode Identity REST API
-  description: The Identity REST API manages users, teams, business units, roles,
-    and API credentials for a Veracode organization. Provides CRUD operations for
-    user accounts, API service accounts, team management, and role-based access control
-    configuration.
-  humanURL: https://docs.veracode.com/r/c_identity_intro
-  baseURL: https://api.veracode.com
-  tags:
-  - Identity
-  - Users
-  - Teams
-  - Access Control
-  properties:
   - type: Documentation
     url: https://docs.veracode.com/r/c_identity_intro
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/openapi/veracode-identity-openapi.yml
-- aid: veracode:veracode-reporting-api
-  name: Veracode Reporting REST API
-  description: The Reporting REST API generates asynchronous security reports for
-    findings, scans, deleted scans, and audit events across the Veracode portfolio.
-    Supports filtering by application, scan type, severity, status, date range, and
-    policy compliance.
-  humanURL: https://docs.veracode.com/r/Reporting_REST_API
-  baseURL: https://api.veracode.com
-  tags:
-  - Reporting
-  - Analytics
-  - Findings
-  - Compliance
-  properties:
   - type: Documentation
     url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-business-units-api
+  name: Veracode Business Units API
+  description: Business unit management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Business Units
+  properties:
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/openapi/veracode-reporting-openapi.yml
+    url: openapi/veracode-business-units-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-findings-api
+  name: Veracode Findings API
+  description: Application security findings
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Findings
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-findings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-manual-penetration-testing-api
+  name: Veracode Manual Penetration Testing API
+  description: Manual penetration test findings
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Manual Penetration Testing
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-manual-penetration-testing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-policy-evaluations-api
+  name: Veracode Policy Evaluations API
+  description: Application policy compliance evaluations
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Policy Evaluations
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-policy-evaluations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-reports-api
+  name: Veracode Reports API
+  description: Asynchronous report generation and retrieval
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-roles-api
+  name: Veracode Roles API
+  description: Role and permission management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-roles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-sandboxes-api
+  name: Veracode Sandboxes API
+  description: Development sandbox management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Sandboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-sandboxes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-teams-api
+  name: Veracode Teams API
+  description: Team management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-teams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
+- aid: veracode:veracode-users-api
+  name: Veracode Users API
+  description: User and API service account management
+  humanURL: https://docs.veracode.com/r/c_apps_intro
+  baseURL: https://api.veracode.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/veracode-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_apps_intro
+  - type: GraphQL
+    url: graphql/veracode-graphql.md
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_findings_v2_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/c_identity_intro
+  - type: Documentation
+    url: https://docs.veracode.com/r/Reporting_REST_API
 common:
 - type: AgenticAccess
   url: agentic-access/veracode-agentic-access.yml
