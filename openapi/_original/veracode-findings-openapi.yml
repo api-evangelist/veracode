@@ -1,0 +1,416 @@
+openapi: 3.1.0
+info:
+  title: Veracode Findings REST API
+  description: >-
+    The Veracode Findings REST API retrieves security findings from static analysis
+    (SAST), dynamic analysis (DAST), manual penetration testing (MPT), and software
+    composition analysis (SCA) scans. Supports filtering by CWE, severity, scan type,
+    CVSS score, policy violations, and annotation status. Authentication uses HMAC
+    with API ID/key credentials.
+  version: 2.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+servers:
+  - url: https://api.veracode.com
+    description: Veracode Commercial Region API
+tags:
+  - name: Findings
+    description: Application security findings
+  - name: Manual Penetration Testing
+    description: Manual penetration test findings
+paths:
+  /appsec/v2/applications/{applicationGuid}/findings:
+    get:
+      operationId: listFindings
+      summary: List Findings
+      description: >-
+        Retrieves security findings for an application. Supports filtering by
+        CWE, severity, scan type, CVSS score, policy violations, and annotation status.
+      tags:
+        - Findings
+      parameters:
+        - name: applicationGuid
+          in: path
+          required: true
+          description: Application unique identifier
+          schema:
+            type: string
+            format: uuid
+        - name: scan_type
+          in: query
+          description: Filter by scan type
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - STATIC
+                - DYNAMIC
+                - MANUAL
+                - SCA
+        - name: severity
+          in: query
+          description: Filter by severity level (0=Informational, 1=Very Low, 2=Low, 3=Medium, 4=High, 5=Very High)
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 5
+        - name: severity_gte
+          in: query
+          description: Filter findings with severity greater than or equal to this value
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 5
+        - name: cwe
+          in: query
+          description: Filter by CWE ID
+          required: false
+          schema:
+            type: string
+        - name: cvss_gte
+          in: query
+          description: Filter findings with CVSS score greater than or equal to this value
+          required: false
+          schema:
+            type: number
+            minimum: 0
+            maximum: 10
+        - name: violates_policy
+          in: query
+          description: Filter to only policy-violating findings
+          required: false
+          schema:
+            type: boolean
+        - name: include_annot
+          in: query
+          description: Include annotation data in response
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: new
+          in: query
+          description: Filter to only new findings
+          required: false
+          schema:
+            type: boolean
+        - name: context
+          in: query
+          description: Sandbox GUID for sandbox-specific findings
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 500
+      responses:
+        '200':
+          description: List of findings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /appsec/v2/applications/{applicationGuid}/findings/{issueId}/dynamic_flaw_info:
+    get:
+      operationId: getDynamicFlawInfo
+      summary: Get Dynamic Flaw Info
+      description: Returns detailed information for a Dynamic Analysis vulnerability finding.
+      tags:
+        - Findings
+      parameters:
+        - name: applicationGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: issueId
+          in: path
+          required: true
+          description: Finding issue ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dynamic flaw details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicFlawInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /appsec/v2/applications/{applicationGuid}/findings/{findingId}/static_flaw_info:
+    get:
+      operationId: getStaticFlawInfo
+      summary: Get Static Flaw Info
+      description: Returns static analysis flaw data and code paths for a finding.
+      tags:
+        - Findings
+      parameters:
+        - name: applicationGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: findingId
+          in: path
+          required: true
+          description: Finding unique identifier
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Static flaw details with code paths
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaticFlawInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /appsec/v2/applications/mpt/v1/scans:
+    get:
+      operationId: listMptScans
+      summary: List Manual Penetration Test Scans
+      description: Returns a list of Manual Penetration Testing scan records.
+      tags:
+        - Manual Penetration Testing
+      responses:
+        '200':
+          description: List of MPT scans
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MptScansPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /appsec/v2/applications/mpt/v1/scans/{scanId}/findings:
+    get:
+      operationId: listMptScanFindings
+      summary: List Manual Penetration Test Findings
+      description: Returns findings from a specific Manual Penetration Testing scan.
+      tags:
+        - Manual Penetration Testing
+      parameters:
+        - name: scanId
+          in: path
+          required: true
+          description: MPT scan identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: MPT scan findings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials
+  schemas:
+    Finding:
+      type: object
+      properties:
+        issue_id:
+          type: integer
+          description: Unique issue ID
+        scan_type:
+          type: string
+          enum:
+            - STATIC
+            - DYNAMIC
+            - MANUAL
+            - SCA
+          description: Type of scan that identified this finding
+        severity:
+          type: integer
+          minimum: 0
+          maximum: 5
+          description: Severity level (0=Informational to 5=Very High)
+        cwe:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            href:
+              type: string
+        finding_status:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - OPEN
+                - CLOSED
+                - MITIGATED
+            new:
+              type: boolean
+            mitigation_review_status:
+              type: string
+            first_found_date:
+              type: string
+              format: date-time
+            last_seen_date:
+              type: string
+              format: date-time
+        violates_policy:
+          type: boolean
+          description: Whether this finding violates the applied policy
+        cvss:
+          type: number
+          description: CVSS score
+        finding_details:
+          type: object
+          description: Scan-type-specific details
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+    Annotation:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+            - APPROVED
+            - REJECTED
+            - COMMENT
+        comment:
+          type: string
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    FindingsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Finding'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    DynamicFlawInfo:
+      type: object
+      properties:
+        url:
+          type: string
+        http_transaction:
+          type: object
+          properties:
+            request:
+              type: string
+            response:
+              type: string
+        exploit_evidence:
+          type: string
+    StaticFlawInfo:
+      type: object
+      properties:
+        data_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              line_number:
+                type: integer
+              file_name:
+                type: string
+    MptScansPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            scans:
+              type: array
+              items:
+                type: object
+                properties:
+                  scan_id:
+                    type: string
+                  status:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date-time
+                  end_date:
+                    type: string
+                    format: date-time
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - HmacAuth: []

@@ -1,0 +1,34 @@
+{
+  "provider": "veracode",
+  "sources": [
+    "veracode-api-credentials-api-openapi.yml",
+    "veracode-applications-api-openapi.yml",
+    "veracode-business-units-api-openapi.yml",
+    "veracode-findings-api-openapi.yml",
+    "veracode-manual-penetration-testing-api-openapi.yml",
+    "veracode-policy-evaluations-api-openapi.yml",
+    "veracode-reports-api-openapi.yml",
+    "veracode-roles-api-openapi.yml",
+    "veracode-sandboxes-api-openapi.yml",
+    "veracode-teams-api-openapi.yml",
+    "veracode-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "veracode-api-credentials-api-openapi.yml",
+    "veracode-applications-api-openapi.yml",
+    "veracode-business-units-api-openapi.yml",
+    "veracode-findings-api-openapi.yml",
+    "veracode-manual-penetration-testing-api-openapi.yml",
+    "veracode-policy-evaluations-api-openapi.yml",
+    "veracode-reports-api-openapi.yml",
+    "veracode-roles-api-openapi.yml",
+    "veracode-sandboxes-api-openapi.yml",
+    "veracode-teams-api-openapi.yml",
+    "veracode-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

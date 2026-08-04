@@ -1,0 +1,289 @@
+openapi: 3.1.0
+info:
+  title: Veracode Reporting REST API
+  description: >-
+    The Veracode Reporting REST API generates asynchronous security reports for
+    findings, scans, deleted scans, and audit events across the Veracode portfolio.
+    Report generation is asynchronous: submit a POST to generate, then poll GET
+    with the returned report ID to retrieve results. Authentication uses HMAC with
+    API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+servers:
+  - url: https://api.veracode.com
+    description: Veracode Commercial Region API
+tags:
+  - name: Reports
+    description: Asynchronous report generation and retrieval
+paths:
+  /appsec/v1/analytics/report:
+    post:
+      operationId: generateReport
+      summary: Generate Report
+      description: >-
+        Submits a report generation request. Returns a report ID to use with
+        the GET endpoint to retrieve results once processing is complete.
+        Report types include FINDINGS, SCANS, DELETEDSCANS, and AUDIT.
+      tags:
+        - Reports
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        '200':
+          description: Report generation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportInitiated'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /appsec/v1/analytics/report/{reportId}:
+    get:
+      operationId: getReport
+      summary: Get Report
+      description: >-
+        Retrieves the results of a report by ID. Poll this endpoint until the
+        status is COMPLETED. Returns paginated findings or scan data depending
+        on report type.
+      tags:
+        - Reports
+      parameters:
+        - name: reportId
+          in: path
+          required: true
+          description: Report ID from the generate report response
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 500
+      responses:
+        '200':
+          description: Report results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResults'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials
+  schemas:
+    ReportRequest:
+      type: object
+      required:
+        - report_type
+      properties:
+        report_type:
+          type: array
+          items:
+            type: string
+            enum:
+              - FINDINGS
+              - SCANS
+              - DELETEDSCANS
+              - AUDIT
+          description: Types of data to include in the report
+        app_id:
+          type: array
+          items:
+            type: string
+          description: Application IDs to include (empty = all applications)
+        scan_type:
+          type: array
+          items:
+            type: string
+            enum:
+              - STATIC
+              - DYNAMIC
+              - MANUAL
+              - SCA
+          description: Filter by scan type
+        status:
+          type: string
+          enum:
+            - open
+            - closed
+            - mitigated
+          description: Filter findings by status
+        severity:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 5
+          description: Filter by severity levels
+        last_updated_start_date:
+          type: string
+          format: date-time
+          description: Start date for date range filter
+        last_updated_end_date:
+          type: string
+          format: date-time
+          description: End date for date range filter
+        policy_sandbox:
+          type: string
+          enum:
+            - Policy
+            - Sandbox
+          description: Filter by policy or sandbox scans
+        policy_rule_passed:
+          type: string
+          enum:
+            - 'yes'
+            - 'no'
+          description: Filter by policy rule pass status
+    ReportInitiated:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to poll for report results
+        report_id:
+          type: string
+          description: Unique identifier for this report generation request
+        status:
+          type: string
+          enum:
+            - REQUESTED
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+    ReportResults:
+      type: object
+      properties:
+        report_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - REQUESTED
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+        _embedded:
+          type: object
+          description: Report data depending on report type
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportFinding'
+            scans:
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportScan'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ReportFinding:
+      type: object
+      properties:
+        app_id:
+          type: string
+        app_name:
+          type: string
+        issue_id:
+          type: integer
+        scan_type:
+          type: string
+        severity:
+          type: integer
+        cwe_id:
+          type: integer
+        cwe_name:
+          type: string
+        status:
+          type: string
+        violates_policy:
+          type: boolean
+        first_found_date:
+          type: string
+          format: date-time
+        last_seen_date:
+          type: string
+          format: date-time
+    ReportScan:
+      type: object
+      properties:
+        app_id:
+          type: string
+        app_name:
+          type: string
+        scan_type:
+          type: string
+        scan_date:
+          type: string
+          format: date-time
+        policy_compliance:
+          type: string
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Report not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - HmacAuth: []

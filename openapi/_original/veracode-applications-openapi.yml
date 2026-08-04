@@ -1,0 +1,457 @@
+openapi: 3.1.0
+info:
+  title: Veracode Applications REST API
+  description: >-
+    The Veracode Applications REST API provides programmatic access to application
+    profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables
+    automation of portfolio management, compliance tracking, and CI/CD integration.
+    Authentication uses HMAC with API ID/key credentials.
+  version: 1.0.0
+  contact:
+    name: Veracode Support
+    url: https://community.veracode.com/
+  termsOfService: https://www.veracode.com/legal-notice
+servers:
+  - url: https://api.veracode.com
+    description: Veracode Commercial Region API
+tags:
+  - name: Applications
+    description: Application profile management
+  - name: Sandboxes
+    description: Development sandbox management
+  - name: Policy Evaluations
+    description: Application policy compliance evaluations
+paths:
+  /appsec/v1/applications:
+    get:
+      operationId: listApplications
+      summary: List Applications
+      description: >-
+        Returns a list of all applications in your portfolio. Supports filtering
+        by name, tag, business unit, scan type, policy compliance, and modified date.
+      tags:
+        - Applications
+      parameters:
+        - name: name
+          in: query
+          description: Filter applications by name
+          required: false
+          schema:
+            type: string
+        - name: policy_compliance
+          in: query
+          description: Filter by compliance status
+          required: false
+          schema:
+            type: string
+            enum:
+              - PASSED
+              - DID_NOT_PASS
+              - CONDITIONAL_PASS
+              - NOT_ASSESSED
+              - CALCULATING
+        - name: tag
+          in: query
+          description: Filter by application tag
+          required: false
+          schema:
+            type: string
+        - name: modified_after
+          in: query
+          description: Filter by last modified date (ISO 8601 format)
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size (max 500)
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 500
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createApplication
+      summary: Create Application
+      description: Creates a new application profile in the Veracode Platform.
+      tags:
+        - Applications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationProfile'
+      responses:
+        '200':
+          description: Application created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /appsec/v1/applications/{applicationGuid}:
+    get:
+      operationId: getApplication
+      summary: Get Application
+      description: Returns details for a specific application by GUID.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '200':
+          description: Application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateApplication
+      summary: Update Application
+      description: Updates an existing application profile.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationProfile'
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplication
+      summary: Delete Application
+      description: Permanently deletes an application profile and all associated data.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '204':
+          description: Application deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /appsec/v1/applications/{applicationGuid}/sandboxes:
+    get:
+      operationId: listSandboxes
+      summary: List Sandboxes
+      description: Returns all development sandboxes for a given application.
+      tags:
+        - Sandboxes
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '200':
+          description: List of sandboxes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxesPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createSandbox
+      summary: Create Sandbox
+      description: Creates a new development sandbox for an application.
+      tags:
+        - Sandboxes
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxProfile'
+      responses:
+        '200':
+          description: Sandbox created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /appsec/v1/applications/{applicationGuid}/policy_compliance:
+    get:
+      operationId: getApplicationPolicyCompliance
+      summary: Get Application Policy Compliance
+      description: Returns the policy compliance evaluation status for an application.
+      tags:
+        - Policy Evaluations
+      parameters:
+        - $ref: '#/components/parameters/ApplicationGuid'
+      responses:
+        '200':
+          description: Policy compliance status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyCompliance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    HmacAuth:
+      type: http
+      scheme: veracode_hmac
+      description: HMAC authentication with Veracode API ID and key credentials
+  parameters:
+    ApplicationGuid:
+      name: applicationGuid
+      in: path
+      required: true
+      description: Unique application identifier (GUID)
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    ApplicationProfile:
+      type: object
+      required:
+        - profile
+      properties:
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Application name
+            description:
+              type: string
+              description: Application description
+            business_criticality:
+              type: string
+              enum:
+                - VERY_HIGH
+                - HIGH
+                - MEDIUM
+                - LOW
+                - VERY_LOW
+              description: Business criticality level
+            policy:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Policy name to apply
+            tags:
+              type: string
+              description: Comma-separated application tags
+            business_unit:
+              type: object
+              properties:
+                name:
+                  type: string
+    Application:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Application unique identifier
+        profile:
+          $ref: '#/components/schemas/ApplicationProfile'
+        scans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanSummary'
+        last_completed_scan_date:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+    ScanSummary:
+      type: object
+      properties:
+        scan_type:
+          type: string
+          enum:
+            - STATIC
+            - DYNAMIC
+            - MANUAL
+            - SCA
+        status:
+          type: string
+        date:
+          type: string
+          format: date-time
+    ApplicationsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            applications:
+              type: array
+              items:
+                $ref: '#/components/schemas/Application'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    SandboxProfile:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Sandbox name
+        auto_recreate:
+          type: boolean
+          default: false
+        custom_fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+    Sandbox:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+        auto_recreate:
+          type: boolean
+        custom_fields:
+          type: array
+          items:
+            type: object
+    SandboxesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            sandboxes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sandbox'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    PolicyCompliance:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        policy_compliance_status:
+          type: string
+          enum:
+            - PASSED
+            - DID_NOT_PASS
+            - CONDITIONAL_PASS
+            - NOT_ASSESSED
+            - CALCULATING
+        last_policy_compliance_check_date:
+          type: string
+          format: date-time
+        policy_name:
+          type: string
+        teams_passed:
+          type: boolean
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+security:
+  - HmacAuth: []
