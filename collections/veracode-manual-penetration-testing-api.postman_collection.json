@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "b4cf1da4-6c84-4d1f-ba44-11b3223a9406",
+      "name": "Manual Penetration Testing",
+      "description": {
+        "content": "Manual penetration test findings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a6dc13c-1000-4480-9897-d71f85d2f940",
+          "name": "List Manual Penetration Test Scans",
+          "request": {
+            "name": "List Manual Penetration Test Scans",
+            "description": {
+              "content": "Returns a list of Manual Penetration Testing scan records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                "mpt",
+                "v1",
+                "scans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d3c9d80-c2c9-4f15-a345-6c5e5fb39141",
+              "name": "List of MPT scans",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"scans\": [\n      {\n        \"scan_id\": \"string\",\n        \"status\": \"string\",\n        \"start_date\": \"2007-10-12T05:07:13.911Z\",\n        \"end_date\": \"1951-05-07T20:56:12.920Z\"\n      },\n      {\n        \"scan_id\": \"string\",\n        \"status\": \"string\",\n        \"start_date\": \"1970-02-01T05:43:58.679Z\",\n        \"end_date\": \"1968-11-07T04:03:17.735Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 6301,\n    \"total_pages\": 1198,\n    \"size\": 4552,\n    \"number\": 8832\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "294483d0-d054-4fa0-b7a6-8c584cb4f0b0",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9109\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56bf879c-4b54-4cab-a7b0-1683844eefc9",
+          "name": "List Manual Penetration Test Findings",
+          "request": {
+            "name": "List Manual Penetration Test Findings",
+            "description": {
+              "content": "Returns findings from a specific Manual Penetration Testing scan.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v2",
+                "applications",
+                "mpt",
+                "v1",
+                "scans",
+                ":scanId",
+                "findings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scanId",
+                  "description": "(Required) MPT scan identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5d9af98-39ee-4237-8087-235bb47ba477",
+              "name": "MPT scan findings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"findings\": [\n      {\n        \"issue_id\": 6863,\n        \"scan_type\": \"SCA\",\n        \"severity\": 3,\n        \"cwe\": {\n          \"id\": 5446,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"MITIGATED\",\n          \"new\": true,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"1953-05-16T14:54:25.281Z\",\n          \"last_seen_date\": \"1959-01-31T03:33:17.758Z\"\n        },\n        \"violates_policy\": true,\n        \"cvss\": 5416.82546352232,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"APPROVED\",\n            \"comment\": \"string\",\n            \"created\": \"1974-02-20T08:59:06.691Z\",\n            \"modified\": \"1965-01-24T16:41:51.366Z\"\n          },\n          {\n            \"action\": \"REJECTED\",\n            \"comment\": \"string\",\n            \"created\": \"2026-06-26T14:31:49.481Z\",\n            \"modified\": \"2021-01-22T19:13:36.229Z\"\n          }\n        ]\n      },\n      {\n        \"issue_id\": 3002,\n        \"scan_type\": \"MANUAL\",\n        \"severity\": 4,\n        \"cwe\": {\n          \"id\": 3298,\n          \"name\": \"string\",\n          \"href\": \"string\"\n        },\n        \"finding_status\": {\n          \"status\": \"MITIGATED\",\n          \"new\": true,\n          \"mitigation_review_status\": \"string\",\n          \"first_found_date\": \"1958-10-25T19:49:47.097Z\",\n          \"last_seen_date\": \"1969-01-07T05:19:32.040Z\"\n        },\n        \"violates_policy\": false,\n        \"cvss\": 9377.327585395129,\n        \"finding_details\": {},\n        \"annotations\": [\n          {\n            \"action\": \"APPROVED\",\n            \"comment\": \"string\",\n            \"created\": \"2001-08-09T21:50:09.574Z\",\n            \"modified\": \"1999-01-19T05:48:49.748Z\"\n          },\n          {\n            \"action\": \"APPROVED\",\n            \"comment\": \"string\",\n            \"created\": \"1984-06-12T22:37:59.277Z\",\n            \"modified\": \"2020-12-05T03:33:19.834Z\"\n          }\n        ]\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 2918,\n    \"total_pages\": 6452,\n    \"size\": 5380,\n    \"number\": 4924\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a021d719-fdc5-4367-b39e-a4ddde657150",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9109\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "147a30ff-49e4-4c9c-9812-298c6a9af7c8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v2",
+                    "applications",
+                    "mpt",
+                    "v1",
+                    "scans",
+                    ":scanId",
+                    "findings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scanId",
+                      "description": "(Required) MPT scan identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9109\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2c904b4-9f08-44b1-a2e6-7440b238612d",
+    "name": "Veracode Applications REST API Credentials Manual Penetration Testing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

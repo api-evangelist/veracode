@@ -1,0 +1,447 @@
+{
+  "item": [
+    {
+      "id": "85eeb73c-62a4-4704-be72-7ae5ff4083f9",
+      "name": "Reports",
+      "description": {
+        "content": "Asynchronous report generation and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1457fadd-e4f6-41cb-8a8e-a37d55302f7f",
+          "name": "Generate Report",
+          "request": {
+            "name": "Generate Report",
+            "description": {
+              "content": "Submits a report generation request. Returns a report ID to use with the GET endpoint to retrieve results once processing is complete. Report types include FINDINGS, SCANS, DELETEDSCANS, and AUDIT.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "analytics",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"report_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"app_id\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scan_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"severity\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"last_updated_start_date\": \"<dateTime>\",\n  \"last_updated_end_date\": \"<dateTime>\",\n  \"policy_sandbox\": \"<string>\",\n  \"policy_rule_passed\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33cfea9f-ca01-4e3e-bd30-ea4047db0782",
+              "name": "Report generation initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"app_id\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scan_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"severity\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"last_updated_start_date\": \"<dateTime>\",\n  \"last_updated_end_date\": \"<dateTime>\",\n  \"policy_sandbox\": \"<string>\",\n  \"policy_rule_passed\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\"\n    }\n  },\n  \"report_id\": \"string\",\n  \"status\": \"COMPLETED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8f1f154-a68c-4f1e-9831-edc43a4c2398",
+              "name": "Invalid request body or parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"app_id\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scan_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"severity\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"last_updated_start_date\": \"<dateTime>\",\n  \"last_updated_end_date\": \"<dateTime>\",\n  \"policy_sandbox\": \"<string>\",\n  \"policy_rule_passed\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 7352\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f76ee6e2-4207-4725-854a-b4694325f4ca",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"app_id\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scan_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"severity\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"last_updated_start_date\": \"<dateTime>\",\n  \"last_updated_end_date\": \"<dateTime>\",\n  \"policy_sandbox\": \"<string>\",\n  \"policy_rule_passed\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 7352\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba5ac801-f227-4025-bd38-ee37cadc42ec",
+          "name": "Get Report",
+          "request": {
+            "name": "Get Report",
+            "description": {
+              "content": "Retrieves the results of a report by ID. Poll this endpoint until the status is COMPLETED. Returns paginated findings or scan data depending on report type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "analytics",
+                "report",
+                ":reportId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportId",
+                  "description": "(Required) Report ID from the generate report response"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "566e815b-b511-4115-a7a8-58ea451de857",
+              "name": "Report results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report",
+                    ":reportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportId",
+                      "description": "(Required) Report ID from the generate report response"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"report_id\": \"string\",\n  \"status\": \"REQUESTED\",\n  \"_embedded\": {\n    \"findings\": [\n      {\n        \"app_id\": \"string\",\n        \"app_name\": \"string\",\n        \"issue_id\": 1185,\n        \"scan_type\": \"string\",\n        \"severity\": 7924,\n        \"cwe_id\": 6552,\n        \"cwe_name\": \"string\",\n        \"status\": \"string\",\n        \"violates_policy\": true,\n        \"first_found_date\": \"2015-08-13T05:05:44.361Z\",\n        \"last_seen_date\": \"1983-06-24T09:01:08.267Z\"\n      },\n      {\n        \"app_id\": \"string\",\n        \"app_name\": \"string\",\n        \"issue_id\": 2549,\n        \"scan_type\": \"string\",\n        \"severity\": 2429,\n        \"cwe_id\": 9134,\n        \"cwe_name\": \"string\",\n        \"status\": \"string\",\n        \"violates_policy\": true,\n        \"first_found_date\": \"2018-08-21T17:43:15.204Z\",\n        \"last_seen_date\": \"1971-10-26T08:58:16.197Z\"\n      }\n    ],\n    \"scans\": [\n      {\n        \"app_id\": \"string\",\n        \"app_name\": \"string\",\n        \"scan_type\": \"string\",\n        \"scan_date\": \"2014-10-23T19:40:02.587Z\",\n        \"policy_compliance\": \"string\"\n      },\n      {\n        \"app_id\": \"string\",\n        \"app_name\": \"string\",\n        \"scan_type\": \"string\",\n        \"scan_date\": \"1972-07-07T10:32:10.239Z\",\n        \"policy_compliance\": \"string\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 9991,\n    \"total_pages\": 2522,\n    \"size\": 2499,\n    \"number\": 7524\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1d31385-1b6a-461a-a8ed-4bd6a66a7ab5",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report",
+                    ":reportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportId",
+                      "description": "(Required) Report ID from the generate report response"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 7352\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6360908-26b1-47c6-843b-6d3f426de987",
+              "name": "Report not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "analytics",
+                    "report",
+                    ":reportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportId",
+                      "description": "(Required) Report ID from the generate report response"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 7352\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cd2096c4-37f5-41cb-8e96-ec982cfea506",
+    "name": "Veracode Applications REST API Credentials Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

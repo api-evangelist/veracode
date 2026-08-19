@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Applications REST API Credentials Business Units API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Units",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Business Units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/api/authn/v2/business_units"
+          },
+          "docs": "Returns all business units in the organization."
+        },
+        {
+          "info": {
+            "name": "Create Business Unit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/api/authn/v2/business_units",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new business unit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

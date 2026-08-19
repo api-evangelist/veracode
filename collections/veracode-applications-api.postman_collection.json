@@ -1,0 +1,1060 @@
+{
+  "item": [
+    {
+      "id": "3416a0d6-204b-4a09-8cf3-4a5d80a91f27",
+      "name": "Applications",
+      "description": {
+        "content": "Application profile management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b931475e-0c9d-47bc-8886-8a8b0d72878f",
+          "name": "List Applications",
+          "request": {
+            "name": "List Applications",
+            "description": {
+              "content": "Returns a list of all applications in your portfolio. Supports filtering by name, tag, business unit, scan type, policy compliance, and modified date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter applications by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "policy_compliance",
+                  "value": "<string>",
+                  "description": "Filter by compliance status"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Filter by application tag"
+                },
+                {
+                  "disabled": false,
+                  "key": "modified_after",
+                  "value": "<dateTime>",
+                  "description": "Filter by last modified date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20",
+                  "description": "Page size (max 500)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e68394ea-757e-4456-970b-fcaf03c498f2",
+              "name": "List of applications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policy_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"applications\": [\n      {\n        \"guid\": \"79d3f104-bd80-5d00-4166-d58746bdb9e5\",\n        \"profile\": {\n          \"profile\": {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"business_criticality\": \"MEDIUM\",\n            \"policy\": {\n              \"name\": \"string\"\n            },\n            \"tags\": \"string\",\n            \"business_unit\": {\n              \"name\": \"string\"\n            }\n          }\n        },\n        \"scans\": [\n          {\n            \"scan_type\": \"MANUAL\",\n            \"status\": \"string\",\n            \"date\": \"2011-06-11T00:51:47.089Z\"\n          },\n          {\n            \"scan_type\": \"DYNAMIC\",\n            \"status\": \"string\",\n            \"date\": \"1962-11-25T21:26:17.640Z\"\n          }\n        ],\n        \"last_completed_scan_date\": \"1995-04-06T12:11:53.335Z\",\n        \"created\": \"1971-09-26T18:54:38.614Z\",\n        \"modified\": \"1961-04-16T04:19:24.876Z\"\n      },\n      {\n        \"guid\": \"acff83bd-6780-792e-efc5-ea7eb5f10ae8\",\n        \"profile\": {\n          \"profile\": {\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"business_criticality\": \"MEDIUM\",\n            \"policy\": {\n              \"name\": \"string\"\n            },\n            \"tags\": \"string\",\n            \"business_unit\": {\n              \"name\": \"string\"\n            }\n          }\n        },\n        \"scans\": [\n          {\n            \"scan_type\": \"MANUAL\",\n            \"status\": \"string\",\n            \"date\": \"1976-01-03T17:42:44.176Z\"\n          },\n          {\n            \"scan_type\": \"DYNAMIC\",\n            \"status\": \"string\",\n            \"date\": \"1993-05-09T04:23:06.148Z\"\n          }\n        ],\n        \"last_completed_scan_date\": \"2018-06-25T18:23:27.115Z\",\n        \"created\": \"1975-06-07T10:38:03.803Z\",\n        \"modified\": \"2013-11-25T18:21:55.409Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 8926,\n    \"total_pages\": 2050,\n    \"size\": 9238,\n    \"number\": 8109\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "486698a0-1a97-4b54-940d-a221d9d967b5",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policy_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45f42ebf-991f-47ce-9a9b-9a04a32ee57e",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policy_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63170009-936c-4879-8659-b7157347898a",
+          "name": "Create Application",
+          "request": {
+            "name": "Create Application",
+            "description": {
+              "content": "Creates a new application profile in the Veracode Platform.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87ccd24f-34dd-41f3-bad3-fec1f329a681",
+              "name": "Application created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guid\": \"dd2597c5-f809-6101-2fd9-088d38fe45e7\",\n  \"profile\": {\n    \"profile\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"business_criticality\": \"VERY_HIGH\",\n      \"policy\": {\n        \"name\": \"string\"\n      },\n      \"tags\": \"string\",\n      \"business_unit\": {\n        \"name\": \"string\"\n      }\n    }\n  },\n  \"scans\": [\n    {\n      \"scan_type\": \"SCA\",\n      \"status\": \"string\",\n      \"date\": \"1987-01-25T08:54:26.277Z\"\n    },\n    {\n      \"scan_type\": \"STATIC\",\n      \"status\": \"string\",\n      \"date\": \"2023-05-21T01:34:34.182Z\"\n    }\n  ],\n  \"last_completed_scan_date\": \"1976-10-27T10:47:14.691Z\",\n  \"created\": \"1948-10-05T01:50:42.096Z\",\n  \"modified\": \"1959-07-03T18:32:24.408Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec7dad99-12c0-455d-8f12-f1b2e2f041d5",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49dbbb07-7edb-405a-bc20-f6bced2cbf62",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7883bc8d-7b28-4ae9-bef3-d6831aea3a25",
+          "name": "Get Application",
+          "request": {
+            "name": "Get Application",
+            "description": {
+              "content": "Returns details for a specific application by GUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "applications",
+                ":applicationGuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) Unique application identifier (GUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80256159-5dea-48a2-bc4b-1c378e5da1b2",
+              "name": "Application details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guid\": \"dd2597c5-f809-6101-2fd9-088d38fe45e7\",\n  \"profile\": {\n    \"profile\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"business_criticality\": \"VERY_HIGH\",\n      \"policy\": {\n        \"name\": \"string\"\n      },\n      \"tags\": \"string\",\n      \"business_unit\": {\n        \"name\": \"string\"\n      }\n    }\n  },\n  \"scans\": [\n    {\n      \"scan_type\": \"SCA\",\n      \"status\": \"string\",\n      \"date\": \"1987-01-25T08:54:26.277Z\"\n    },\n    {\n      \"scan_type\": \"STATIC\",\n      \"status\": \"string\",\n      \"date\": \"2023-05-21T01:34:34.182Z\"\n    }\n  ],\n  \"last_completed_scan_date\": \"1976-10-27T10:47:14.691Z\",\n  \"created\": \"1948-10-05T01:50:42.096Z\",\n  \"modified\": \"1959-07-03T18:32:24.408Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eda59ae0-6de7-469a-8c5d-474b48a34afc",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b1da6a0-2cde-49a0-b964-fd1a4d12ecd3",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "101b899c-4112-4c7e-bb5e-78ba7ff698a4",
+          "name": "Update Application",
+          "request": {
+            "name": "Update Application",
+            "description": {
+              "content": "Updates an existing application profile.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "applications",
+                ":applicationGuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) Unique application identifier (GUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8dbc64a0-c1b7-4464-b4ff-7f6a984af806",
+              "name": "Application updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guid\": \"dd2597c5-f809-6101-2fd9-088d38fe45e7\",\n  \"profile\": {\n    \"profile\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"business_criticality\": \"VERY_HIGH\",\n      \"policy\": {\n        \"name\": \"string\"\n      },\n      \"tags\": \"string\",\n      \"business_unit\": {\n        \"name\": \"string\"\n      }\n    }\n  },\n  \"scans\": [\n    {\n      \"scan_type\": \"SCA\",\n      \"status\": \"string\",\n      \"date\": \"1987-01-25T08:54:26.277Z\"\n    },\n    {\n      \"scan_type\": \"STATIC\",\n      \"status\": \"string\",\n      \"date\": \"2023-05-21T01:34:34.182Z\"\n    }\n  ],\n  \"last_completed_scan_date\": \"1976-10-27T10:47:14.691Z\",\n  \"created\": \"1948-10-05T01:50:42.096Z\",\n  \"modified\": \"1959-07-03T18:32:24.408Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdc62f43-8c73-4f9b-8639-9e30976cc5f6",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19dae875-f748-44e5-9261-f6dfd363c075",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"business_criticality\": \"<string>\",\n    \"policy\": {\n      \"name\": \"<string>\"\n    },\n    \"tags\": \"<string>\",\n    \"business_unit\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a96e826-6f15-4343-8923-d8a80a56594f",
+          "name": "Delete Application",
+          "request": {
+            "name": "Delete Application",
+            "description": {
+              "content": "Permanently deletes an application profile and all associated data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appsec",
+                "v1",
+                "applications",
+                ":applicationGuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationGuid",
+                  "description": "(Required) Unique application identifier (GUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bd156a2-58ab-402d-b938-23bed1dbe2b2",
+              "name": "Application deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c89adc14-c649-424c-9b9e-aaf5d9c0ed4e",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c583abb-dd5e-41bb-80bf-71c3873d1ec8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appsec",
+                    "v1",
+                    "applications",
+                    ":applicationGuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationGuid",
+                      "description": "(Required) Unique application identifier (GUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 9170\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2a3c507-3edc-48bb-8a2b-79343f7a328b",
+    "name": "Veracode REST API Credentials Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

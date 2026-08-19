@@ -1,0 +1,1120 @@
+{
+  "item": [
+    {
+      "id": "61812e57-700f-4d2d-8bd8-f038580d6ac5",
+      "name": "Users",
+      "description": {
+        "content": "User and API service account management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b08f8da5-8aa8-48ca-9d74-e2cdc872e420",
+          "name": "List Users",
+          "request": {
+            "name": "List Users",
+            "description": {
+              "content": "Returns all users in the organization. Paginated, max 20 per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fcea4be-ac30-4ef9-b089-68eaa40652c4",
+              "name": "List of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"users\": [\n      {\n        \"user_id\": \"string\",\n        \"user_name\": \"string\",\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"user_type\": \"API\",\n        \"active\": false,\n        \"roles\": [\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": true\n          },\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": false\n          }\n        ],\n        \"teams\": [\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"1999-11-23T05:22:41.196Z\",\n            \"modified\": \"2012-06-02T22:01:46.484Z\"\n          },\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"1984-03-14T02:28:09.580Z\",\n            \"modified\": \"2017-11-08T07:06:11.475Z\"\n          }\n        ],\n        \"created\": \"2016-08-21T17:24:48.881Z\",\n        \"modified\": \"1966-05-08T19:07:39.934Z\"\n      },\n      {\n        \"user_id\": \"string\",\n        \"user_name\": \"string\",\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"user_type\": \"API\",\n        \"active\": true,\n        \"roles\": [\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": false\n          },\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": true\n          }\n        ],\n        \"teams\": [\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"2020-09-21T17:26:10.044Z\",\n            \"modified\": \"1958-04-12T06:15:20.422Z\"\n          },\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"2025-02-17T12:57:16.835Z\",\n            \"modified\": \"2024-08-02T23:04:52.607Z\"\n          }\n        ],\n        \"created\": \"1996-08-20T01:48:29.062Z\",\n        \"modified\": \"2009-02-06T21:54:13.579Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 6634,\n    \"total_pages\": 2715,\n    \"size\": 8977,\n    \"number\": 1037\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb460a74-f066-4484-84a4-fd6b8294c9b0",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "432d243d-5724-47d2-bfa6-7463dbced5fb",
+              "name": "Insufficient permissions for this operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "accb663e-8ce0-4675-97a4-6cc2cc066b04",
+          "name": "Create User",
+          "request": {
+            "name": "Create User",
+            "description": {
+              "content": "Creates a new user or API service account in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "785633c9-9349-4015-9296-a15efa551f90",
+              "name": "User created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_id\": \"string\",\n  \"user_name\": \"string\",\n  \"email_address\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"user_type\": \"API\",\n  \"active\": true,\n  \"roles\": [\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": true\n    },\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": false\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"1968-01-21T17:49:34.811Z\",\n      \"modified\": \"1973-08-14T10:44:11.355Z\"\n    },\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"2021-09-19T20:51:44.058Z\",\n      \"modified\": \"1962-11-22T01:41:13.866Z\"\n    }\n  ],\n  \"created\": \"1995-06-14T06:30:02.446Z\",\n  \"modified\": \"2020-06-15T21:08:43.126Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dee1c413-3dde-4d81-89c7-4678306bbf7a",
+              "name": "Invalid request body or parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3ff0a5d-c92a-4385-9f97-2c1bc4e6f3dc",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82451ce6-5c5c-4d24-bc21-3801b2362613",
+          "name": "Search Users",
+          "request": {
+            "name": "Search Users",
+            "description": {
+              "content": "Search users by term, API ID, role, type, or SAML status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search_term",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "role_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "saml_user",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd328555-57cf-45b7-9ff9-4d1fd4b25c81",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "saml_user",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"users\": [\n      {\n        \"user_id\": \"string\",\n        \"user_name\": \"string\",\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"user_type\": \"API\",\n        \"active\": false,\n        \"roles\": [\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": true\n          },\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": false\n          }\n        ],\n        \"teams\": [\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"1999-11-23T05:22:41.196Z\",\n            \"modified\": \"2012-06-02T22:01:46.484Z\"\n          },\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"1984-03-14T02:28:09.580Z\",\n            \"modified\": \"2017-11-08T07:06:11.475Z\"\n          }\n        ],\n        \"created\": \"2016-08-21T17:24:48.881Z\",\n        \"modified\": \"1966-05-08T19:07:39.934Z\"\n      },\n      {\n        \"user_id\": \"string\",\n        \"user_name\": \"string\",\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"user_type\": \"API\",\n        \"active\": true,\n        \"roles\": [\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": false\n          },\n          {\n            \"role_id\": \"string\",\n            \"role_name\": \"string\",\n            \"role_description\": \"string\",\n            \"is_scan_type\": true\n          }\n        ],\n        \"teams\": [\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"2020-09-21T17:26:10.044Z\",\n            \"modified\": \"1958-04-12T06:15:20.422Z\"\n          },\n          {\n            \"team_id\": \"string\",\n            \"team_name\": \"string\",\n            \"relationship\": {},\n            \"created\": \"2025-02-17T12:57:16.835Z\",\n            \"modified\": \"2024-08-02T23:04:52.607Z\"\n          }\n        ],\n        \"created\": \"1996-08-20T01:48:29.062Z\",\n        \"modified\": \"2009-02-06T21:54:13.579Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 6634,\n    \"total_pages\": 2715,\n    \"size\": 8977,\n    \"number\": 1037\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa2af4c4-e772-4ed7-8e9b-7a3aed9ac10d",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "saml_user",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff274062-2f0b-41e3-bb1e-40f92f5910db",
+          "name": "Get Current User",
+          "request": {
+            "name": "Get Current User",
+            "description": {
+              "content": "Returns the current authenticated user's principal details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users",
+                "self"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3b764f2-7424-4392-a184-138641740b7e",
+              "name": "Current user details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_id\": \"string\",\n  \"user_name\": \"string\",\n  \"email_address\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"user_type\": \"API\",\n  \"active\": true,\n  \"roles\": [\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": true\n    },\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": false\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"1968-01-21T17:49:34.811Z\",\n      \"modified\": \"1973-08-14T10:44:11.355Z\"\n    },\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"2021-09-19T20:51:44.058Z\",\n      \"modified\": \"1962-11-22T01:41:13.866Z\"\n    }\n  ],\n  \"created\": \"1995-06-14T06:30:02.446Z\",\n  \"modified\": \"2020-06-15T21:08:43.126Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f241bd8-dab7-4b07-af97-a3d5c2c0c4b3",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea3b694c-407e-439c-b610-9d1dc84b0e47",
+          "name": "Update User",
+          "request": {
+            "name": "Update User",
+            "description": {
+              "content": "Updates an existing user account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User unique identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c07afb7b-9781-4612-aa04-bda901931acb",
+              "name": "User updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_id\": \"string\",\n  \"user_name\": \"string\",\n  \"email_address\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"user_type\": \"API\",\n  \"active\": true,\n  \"roles\": [\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": true\n    },\n    {\n      \"role_id\": \"string\",\n      \"role_name\": \"string\",\n      \"role_description\": \"string\",\n      \"is_scan_type\": false\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"1968-01-21T17:49:34.811Z\",\n      \"modified\": \"1973-08-14T10:44:11.355Z\"\n    },\n    {\n      \"team_id\": \"string\",\n      \"team_name\": \"string\",\n      \"relationship\": {},\n      \"created\": \"2021-09-19T20:51:44.058Z\",\n      \"modified\": \"1962-11-22T01:41:13.866Z\"\n    }\n  ],\n  \"created\": \"1995-06-14T06:30:02.446Z\",\n  \"modified\": \"2020-06-15T21:08:43.126Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67f50f02-fee1-4ade-b227-b5a127e371ed",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23ea0641-3708-42b7-8db9-5932c58ffe85",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"user_type\": \"<string>\",\n  \"roles\": [\n    {\n      \"role_name\": \"<string>\"\n    },\n    {\n      \"role_name\": \"<string>\"\n    }\n  ],\n  \"teams\": [\n    {\n      \"team_id\": \"<string>\"\n    },\n    {\n      \"team_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0909f015-94d8-4902-ae9b-5e16f5d9400e",
+          "name": "Delete User",
+          "request": {
+            "name": "Delete User",
+            "description": {
+              "content": "Deletes a user account from the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) User unique identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d42925fe-9f1c-43a4-bbd6-fe120bc5a058",
+              "name": "User deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "139f47e4-6b3d-4da1-8717-b55e68691cd8",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa90d070-ad7e-43f3-9b48-0485f0fb9b79",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) User unique identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 2058\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ae5c70a5-0cb9-41d0-b725-17f9eb3518f1",
+    "name": "Veracode Applications REST API Credentials Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Applications REST API Credentials Sandboxes API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sandboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sandboxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v1/applications/:applicationGuid/sandboxes",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique application identifier (GUID)"
+              }
+            ]
+          },
+          "docs": "Returns all development sandboxes for a given application."
+        },
+        {
+          "info": {
+            "name": "Create Sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/appsec/v1/applications/:applicationGuid/sandboxes",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique application identifier (GUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new development sandbox for an application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

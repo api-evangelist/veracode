@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "583b6649-979b-401e-8988-16c14a605501",
+      "name": "Business Units",
+      "description": {
+        "content": "Business unit management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e2e4fc7c-bea2-4167-9ac1-0c15158ba0c0",
+          "name": "List Business Units",
+          "request": {
+            "name": "List Business Units",
+            "description": {
+              "content": "Returns all business units in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "business_units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2913ad59-739c-4920-bcd1-0b35b0d55581",
+              "name": "List of business units",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "business_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_embedded\": {\n    \"business_units\": [\n      {\n        \"bu_id\": \"string\",\n        \"name\": \"string\",\n        \"created\": \"2010-05-15T22:40:43.514Z\"\n      },\n      {\n        \"bu_id\": \"string\",\n        \"name\": \"string\",\n        \"created\": \"1975-06-08T09:04:39.385Z\"\n      }\n    ]\n  },\n  \"page\": {\n    \"total_elements\": 2439,\n    \"total_pages\": 2725,\n    \"size\": 4620,\n    \"number\": 2830\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69402584-ee56-4239-9f42-cd6b6436e541",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "business_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 6098\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97efd0f0-814a-48bf-a386-af5e40b5e563",
+          "name": "Create Business Unit",
+          "request": {
+            "name": "Create Business Unit",
+            "description": {
+              "content": "Creates a new business unit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "authn",
+                "v2",
+                "business_units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65d5f5f0-9c4b-4864-921c-6972ec86d002",
+              "name": "Business unit created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "business_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bu_id\": \"string\",\n  \"name\": \"string\",\n  \"created\": \"2017-03-02T09:47:18.446Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de6aa822-11a8-412e-9d09-1aa7f646693a",
+              "name": "Missing or invalid HMAC credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "authn",
+                    "v2",
+                    "business_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_status\": \"string\",\n  \"message\": \"string\",\n  \"http_code\": 6098\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.veracode.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e30ad4fa-c8fb-40e6-980e-f0c94e6dac76",
+    "name": "Veracode Applications REST API Credentials Business Units API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.\n\nContact Support:\n Name: Veracode Support",
+      "type": "text/plain"
+    }
+  }
+}

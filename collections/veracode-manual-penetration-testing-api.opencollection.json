@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode Applications REST API Credentials Manual Penetration Testing API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manual Penetration Testing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Manual Penetration Test Scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/mpt/v1/scans"
+          },
+          "docs": "Returns a list of Manual Penetration Testing scan records."
+        },
+        {
+          "info": {
+            "name": "List Manual Penetration Test Findings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v2/applications/mpt/v1/scans/:scanId/findings",
+            "params": [
+              {
+                "name": "scanId",
+                "value": "",
+                "type": "path",
+                "description": "MPT scan identifier"
+              }
+            ]
+          },
+          "docs": "Returns findings from a specific Manual Penetration Testing scan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

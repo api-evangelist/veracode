@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Veracode REST API Credentials Applications API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v1/applications",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter applications by name"
+              },
+              {
+                "name": "policy_compliance",
+                "value": "",
+                "type": "query",
+                "description": "Filter by compliance status"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by application tag"
+              },
+              {
+                "name": "modified_after",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last modified date (ISO 8601 format)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Page size (max 500)"
+              }
+            ]
+          },
+          "docs": "Returns a list of all applications in your portfolio. Supports filtering by name, tag, business unit, scan type, policy compliance, and modified date."
+        },
+        {
+          "info": {
+            "name": "Create Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.veracode.com/appsec/v1/applications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new application profile in the Veracode Platform."
+        },
+        {
+          "info": {
+            "name": "Get Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.veracode.com/appsec/v1/applications/:applicationGuid",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique application identifier (GUID)"
+              }
+            ]
+          },
+          "docs": "Returns details for a specific application by GUID."
+        },
+        {
+          "info": {
+            "name": "Update Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.veracode.com/appsec/v1/applications/:applicationGuid",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique application identifier (GUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing application profile."
+        },
+        {
+          "info": {
+            "name": "Delete Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.veracode.com/appsec/v1/applications/:applicationGuid",
+            "params": [
+              {
+                "name": "applicationGuid",
+                "value": "",
+                "type": "path",
+                "description": "Unique application identifier (GUID)"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an application profile and all associated data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
