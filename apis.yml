@@ -62,6 +62,8 @@ apis:
   humanURL: https://docs.veracode.com/r/c_apps_intro
   baseURL: https://api.veracode.com
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -222,6 +224,8 @@ apis:
   humanURL: https://docs.veracode.com/r/c_apps_intro
   baseURL: https://api.veracode.com
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -242,6 +246,8 @@ apis:
   humanURL: https://docs.veracode.com/r/c_apps_intro
   baseURL: https://api.veracode.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
