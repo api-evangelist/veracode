@@ -8,6 +8,17 @@ description: Veracode is an application security testing (AST) platform offering
   All REST APIs use HMAC authentication with API ID/key credentials and return JSON
   responses following OpenAPI standards.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
