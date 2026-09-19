@@ -215,6 +215,8 @@ apis:
   humanURL: https://docs.veracode.com/r/c_apps_intro
   baseURL: https://api.veracode.com
   tags:
+  - Sandbox
+  tags_raw:
   - Sandboxes
   properties:
   - type: OpenAPI
