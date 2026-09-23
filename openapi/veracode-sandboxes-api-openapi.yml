@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Veracode Applications REST API Credentials Sandboxes API
+  title: Veracode Applications REST Sandboxes API
   description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
   version: 1.0.0
   contact:
@@ -61,6 +61,27 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    SandboxesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            sandboxes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sandbox'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     PageInfo:
       type: object
       properties:
@@ -72,15 +93,24 @@ components:
           type: integer
         number:
           type: integer
-    Error:
+    SandboxProfile:
       type: object
       properties:
-        _status:
+        name:
           type: string
-        message:
-          type: string
-        http_code:
-          type: integer
+          description: Sandbox name
+        auto_recreate:
+          type: boolean
+          default: false
+        custom_fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
     Sandbox:
       type: object
       properties:
@@ -101,45 +131,6 @@ components:
           type: array
           items:
             type: object
-    SandboxesPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            sandboxes:
-              type: array
-              items:
-                $ref: '#/components/schemas/Sandbox'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    SandboxProfile:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Sandbox name
-        auto_recreate:
-          type: boolean
-          default: false
-        custom_fields:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
-  parameters:
-    ApplicationGuid:
-      name: applicationGuid
-      in: path
-      required: true
-      description: Unique application identifier (GUID)
-      schema:
-        type: string
-        format: uuid
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
@@ -153,6 +144,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ApplicationGuid:
+      name: applicationGuid
+      in: path
+      required: true
+      description: Unique application identifier (GUID)
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     HmacAuth:
       type: http

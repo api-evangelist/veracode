@@ -1,12 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Veracode Applications REST API Credentials Teams API
-  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
-  version: 1.0.0
+  title: Veracode Identity REST Teams API
+  description: 'The Veracode Identity REST API manages users, API service accounts, teams, business units, roles, and API credentials for a Veracode organization. Provides full CRUD operations for organizational identity and access management. Base URL: https://api.veracode.com/api/authn/v2'
+  version: 2.0.0
   contact:
     name: Veracode Support
     url: https://community.veracode.com/
-  termsOfService: https://www.veracode.com/legal-notice
 servers:
 - url: https://api.veracode.com
   description: Veracode Commercial Region API
@@ -111,17 +110,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    PageInfo:
+    TeamProfile:
       type: object
       properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
+        team_name:
+          type: string
+        relationship:
+          type: object
+          properties:
+            name:
+              type: string
     Error:
       type: object
       properties:
@@ -143,16 +141,17 @@ components:
                 $ref: '#/components/schemas/Team'
         page:
           $ref: '#/components/schemas/PageInfo'
-    TeamProfile:
+    PageInfo:
       type: object
       properties:
-        team_name:
-          type: string
-        relationship:
-          type: object
-          properties:
-            name:
-              type: string
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
     Team:
       type: object
       properties:
@@ -168,14 +167,6 @@ components:
         modified:
           type: string
           format: date-time
-  parameters:
-    TeamId:
-      name: teamId
-      in: path
-      required: true
-      description: Team unique identifier
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
@@ -189,6 +180,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Team unique identifier
+      schema:
+        type: string
   securitySchemes:
     HmacAuth:
       type: http

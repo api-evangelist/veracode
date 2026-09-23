@@ -1,12 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Veracode Applications REST API Credentials Findings API
-  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
-  version: 1.0.0
+  title: Veracode REST Findings API
+  description: The Veracode Findings REST API retrieves security findings from static analysis (SAST), dynamic analysis (DAST), manual penetration testing (MPT), and software composition analysis (SCA) scans. Supports filtering by CWE, severity, scan type, CVSS score, policy violations, and annotation status. Authentication uses HMAC with API ID/key credentials.
+  version: 2.0.0
   contact:
     name: Veracode Support
     url: https://community.veracode.com/
-  termsOfService: https://www.veracode.com/legal-notice
 servers:
 - url: https://api.veracode.com
   description: Veracode Commercial Region API
@@ -187,17 +186,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
     FindingsPage:
       type: object
       properties:
@@ -210,15 +198,6 @@ components:
                 $ref: '#/components/schemas/Finding'
         page:
           $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
     Finding:
       type: object
       properties:
@@ -279,6 +258,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     DynamicFlawInfo:
       type: object
       properties:
@@ -293,20 +281,17 @@ components:
               type: string
         exploit_evidence:
           type: string
-    StaticFlawInfo:
+    PageInfo:
       type: object
       properties:
-        data_paths:
-          type: array
-          items:
-            type: object
-            properties:
-              file_path:
-                type: string
-              line_number:
-                type: integer
-              file_name:
-                type: string
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
     Annotation:
       type: object
       properties:
@@ -324,6 +309,20 @@ components:
         modified:
           type: string
           format: date-time
+    StaticFlawInfo:
+      type: object
+      properties:
+        data_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              line_number:
+                type: integer
+              file_name:
+                type: string
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials

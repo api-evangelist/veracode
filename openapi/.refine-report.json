@@ -1,34 +1,46 @@
 {
   "provider": "veracode",
   "sources": [
-    "veracode-api-credentials-api-openapi.yml",
-    "veracode-applications-api-openapi.yml",
-    "veracode-business-units-api-openapi.yml",
-    "veracode-findings-api-openapi.yml",
-    "veracode-manual-penetration-testing-api-openapi.yml",
-    "veracode-policy-evaluations-api-openapi.yml",
-    "veracode-reports-api-openapi.yml",
-    "veracode-roles-api-openapi.yml",
-    "veracode-sandboxes-api-openapi.yml",
-    "veracode-teams-api-openapi.yml",
-    "veracode-users-api-openapi.yml"
+    "_original/veracode-applications-openapi.yml",
+    "_original/veracode-findings-openapi.yml",
+    "_original/veracode-identity-openapi.yml",
+    "_original/veracode-reporting-openapi.yml"
   ],
   "outputs": [
-    "veracode-api-credentials-api-openapi.yml",
     "veracode-applications-api-openapi.yml",
-    "veracode-business-units-api-openapi.yml",
+    "veracode-policy-evaluations-api-openapi.yml",
+    "veracode-sandboxes-api-openapi.yml",
     "veracode-findings-api-openapi.yml",
     "veracode-manual-penetration-testing-api-openapi.yml",
-    "veracode-policy-evaluations-api-openapi.yml",
-    "veracode-reports-api-openapi.yml",
+    "veracode-api-credentials-api-openapi.yml",
+    "veracode-business-units-api-openapi.yml",
     "veracode-roles-api-openapi.yml",
-    "veracode-sandboxes-api-openapi.yml",
     "veracode-teams-api-openapi.yml",
-    "veracode-users-api-openapi.yml"
+    "veracode-users-api-openapi.yml",
+    "veracode-reports-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "veracode-applications-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "veracode-findings-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "veracode-identity-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "veracode-reporting-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "veracode-api-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-business-units-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-findings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-manual-penetration-testing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-policy-evaluations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-roles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-sandboxes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "veracode-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

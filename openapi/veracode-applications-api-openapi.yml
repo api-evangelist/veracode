@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Veracode REST API Credentials Applications API
+  title: Veracode REST Applications API
   description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
   version: 1.0.0
   contact:
@@ -166,17 +166,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    PageInfo:
+    ApplicationsPage:
       type: object
       properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
+        _embedded:
+          type: object
+          properties:
+            applications:
+              type: array
+              items:
+                $ref: '#/components/schemas/Application'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     Application:
       type: object
       properties:
@@ -208,18 +209,32 @@ components:
           type: string
         http_code:
           type: integer
-    ApplicationsPage:
+    ScanSummary:
       type: object
       properties:
-        _embedded:
-          type: object
-          properties:
-            applications:
-              type: array
-              items:
-                $ref: '#/components/schemas/Application'
-        page:
-          $ref: '#/components/schemas/PageInfo'
+        scan_type:
+          type: string
+          enum:
+          - STATIC
+          - DYNAMIC
+          - MANUAL
+          - SCA
+        status:
+          type: string
+        date:
+          type: string
+          format: date-time
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
     ApplicationProfile:
       type: object
       required:
@@ -257,33 +272,15 @@ components:
               properties:
                 name:
                   type: string
-    ScanSummary:
-      type: object
-      properties:
-        scan_type:
-          type: string
-          enum:
-          - STATIC
-          - DYNAMIC
-          - MANUAL
-          - SCA
-        status:
-          type: string
-        date:
-          type: string
-          format: date-time
-  parameters:
-    ApplicationGuid:
-      name: applicationGuid
-      in: path
-      required: true
-      description: Unique application identifier (GUID)
-      schema:
-        type: string
-        format: uuid
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions
       content:
         application/json:
           schema:
@@ -300,12 +297,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    ApplicationGuid:
+      name: applicationGuid
+      in: path
+      required: true
+      description: Unique application identifier (GUID)
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     HmacAuth:
       type: http

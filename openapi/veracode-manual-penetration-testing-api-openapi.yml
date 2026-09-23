@@ -1,12 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Veracode Applications REST API Credentials Manual Penetration Testing API
-  description: The Veracode Applications REST API provides programmatic access to application profiles, sandboxes, and policy evaluations in the Veracode Platform. Enables automation of portfolio management, compliance tracking, and CI/CD integration. Authentication uses HMAC with API ID/key credentials.
-  version: 1.0.0
+  title: Veracode Findings REST Manual Penetration Testing API
+  description: The Veracode Findings REST API retrieves security findings from static analysis (SAST), dynamic analysis (DAST), manual penetration testing (MPT), and software composition analysis (SCA) scans. Supports filtering by CWE, severity, scan type, CVSS score, policy violations, and annotation status. Authentication uses HMAC with API ID/key credentials.
+  version: 2.0.0
   contact:
     name: Veracode Support
     url: https://community.veracode.com/
-  termsOfService: https://www.veracode.com/legal-notice
 servers:
 - url: https://api.veracode.com
   description: Veracode Commercial Region API
@@ -59,17 +58,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
     FindingsPage:
       type: object
       properties:
@@ -80,38 +68,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Finding'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    MptScansPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            scans:
-              type: array
-              items:
-                type: object
-                properties:
-                  scan_id:
-                    type: string
-                  status:
-                    type: string
-                  start_date:
-                    type: string
-                    format: date-time
-                  end_date:
-                    type: string
-                    format: date-time
         page:
           $ref: '#/components/schemas/PageInfo'
     Finding:
@@ -174,6 +130,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
     Annotation:
       type: object
       properties:
@@ -191,6 +167,29 @@ components:
         modified:
           type: string
           format: date-time
+    MptScansPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            scans:
+              type: array
+              items:
+                type: object
+                properties:
+                  scan_id:
+                    type: string
+                  status:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date-time
+                  end_date:
+                    type: string
+                    format: date-time
+        page:
+          $ref: '#/components/schemas/PageInfo'
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
