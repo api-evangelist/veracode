@@ -59,8 +59,6 @@ apis:
     url: openapi/veracode-api-credentials-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -81,8 +79,6 @@ apis:
     url: openapi/veracode-applications-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -101,8 +97,6 @@ apis:
     url: openapi/veracode-business-units-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -121,8 +115,6 @@ apis:
     url: openapi/veracode-findings-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -141,8 +133,6 @@ apis:
     url: openapi/veracode-manual-penetration-testing-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -161,8 +151,6 @@ apis:
     url: openapi/veracode-policy-evaluations-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -181,8 +169,6 @@ apis:
     url: openapi/veracode-reports-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -201,8 +187,6 @@ apis:
     url: openapi/veracode-roles-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -223,8 +207,6 @@ apis:
     url: openapi/veracode-sandboxes-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -245,8 +227,6 @@ apis:
     url: openapi/veracode-teams-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
@@ -267,8 +247,6 @@ apis:
     url: openapi/veracode-users-api-openapi.yml
   - type: Documentation
     url: https://docs.veracode.com/r/c_apps_intro
-  - type: GraphQL
-    url: graphql/veracode-graphql.md
   - type: Documentation
     url: https://docs.veracode.com/r/c_findings_v2_intro
   - type: Documentation
