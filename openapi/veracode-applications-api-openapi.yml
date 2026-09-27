@@ -178,6 +178,30 @@ components:
                 $ref: '#/components/schemas/Application'
         page:
           $ref: '#/components/schemas/PageInfo'
+    ScanSummary:
+      type: object
+      properties:
+        scan_type:
+          type: string
+          enum:
+          - STATIC
+          - DYNAMIC
+          - MANUAL
+          - SCA
+        status:
+          type: string
+        date:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     Application:
       type: object
       properties:
@@ -200,41 +224,6 @@ components:
         modified:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    ScanSummary:
-      type: object
-      properties:
-        scan_type:
-          type: string
-          enum:
-          - STATIC
-          - DYNAMIC
-          - MANUAL
-          - SCA
-        status:
-          type: string
-        date:
-          type: string
-          format: date-time
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
     ApplicationProfile:
       type: object
       required:
@@ -272,6 +261,17 @@ components:
               properties:
                 name:
                   type: string
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
@@ -279,14 +279,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Insufficient permissions
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    Forbidden:
+      description: Insufficient permissions
       content:
         application/json:
           schema:

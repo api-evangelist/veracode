@@ -61,6 +61,30 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    BusinessUnit:
+      type: object
+      properties:
+        bu_id:
+          type: string
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+    BusinessUnitProfile:
+      type: object
+      properties:
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     BusinessUnitsPage:
       type: object
       properties:
@@ -73,25 +97,6 @@ components:
                 $ref: '#/components/schemas/BusinessUnit'
         page:
           $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    BusinessUnit:
-      type: object
-      properties:
-        bu_id:
-          type: string
-        name:
-          type: string
-        created:
-          type: string
-          format: date-time
     PageInfo:
       type: object
       properties:
@@ -103,11 +108,6 @@ components:
           type: integer
         number:
           type: integer
-    BusinessUnitProfile:
-      type: object
-      properties:
-        name:
-          type: string
   securitySchemes:
     HmacAuth:
       type: http

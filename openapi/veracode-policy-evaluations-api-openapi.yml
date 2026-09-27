@@ -51,6 +51,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     PolicyCompliance:
       type: object
       properties:
@@ -72,15 +81,6 @@ components:
           type: string
         teams_passed:
           type: boolean
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
   parameters:
     ApplicationGuid:
       name: applicationGuid

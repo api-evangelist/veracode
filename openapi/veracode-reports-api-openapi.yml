@@ -79,64 +79,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ReportFinding:
-      type: object
-      properties:
-        app_id:
-          type: string
-        app_name:
-          type: string
-        issue_id:
-          type: integer
-        scan_type:
-          type: string
-        severity:
-          type: integer
-        cwe_id:
-          type: integer
-        cwe_name:
-          type: string
-        status:
-          type: string
-        violates_policy:
-          type: boolean
-        first_found_date:
-          type: string
-          format: date-time
-        last_seen_date:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    ReportInitiated:
-      type: object
-      properties:
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to poll for report results
-        report_id:
-          type: string
-          description: Unique identifier for this report generation request
-        status:
-          type: string
-          enum:
-          - REQUESTED
-          - PROCESSING
-          - COMPLETED
-          - FAILED
     ReportResults:
       type: object
       properties:
@@ -163,31 +105,6 @@ components:
                 $ref: '#/components/schemas/ReportScan'
         page:
           $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
-    ReportScan:
-      type: object
-      properties:
-        app_id:
-          type: string
-        app_name:
-          type: string
-        scan_type:
-          type: string
-        scan_date:
-          type: string
-          format: date-time
-        policy_compliance:
-          type: string
     ReportRequest:
       type: object
       required:
@@ -252,6 +169,89 @@ components:
           - 'yes'
           - 'no'
           description: Filter by policy rule pass status
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    ReportScan:
+      type: object
+      properties:
+        app_id:
+          type: string
+        app_name:
+          type: string
+        scan_type:
+          type: string
+        scan_date:
+          type: string
+          format: date-time
+        policy_compliance:
+          type: string
+    ReportFinding:
+      type: object
+      properties:
+        app_id:
+          type: string
+        app_name:
+          type: string
+        issue_id:
+          type: integer
+        scan_type:
+          type: string
+        severity:
+          type: integer
+        cwe_id:
+          type: integer
+        cwe_name:
+          type: string
+        status:
+          type: string
+        violates_policy:
+          type: boolean
+        first_found_date:
+          type: string
+          format: date-time
+        last_seen_date:
+          type: string
+          format: date-time
+    ReportInitiated:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to poll for report results
+        report_id:
+          type: string
+          description: Unique identifier for this report generation request
+        status:
+          type: string
+          enum:
+          - REQUESTED
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials

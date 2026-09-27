@@ -186,18 +186,29 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    FindingsPage:
+    StaticFlawInfo:
       type: object
       properties:
-        _embedded:
-          type: object
-          properties:
-            findings:
-              type: array
-              items:
-                $ref: '#/components/schemas/Finding'
-        page:
-          $ref: '#/components/schemas/PageInfo'
+        data_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              line_number:
+                type: integer
+              file_name:
+                type: string
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     Finding:
       type: object
       properties:
@@ -258,15 +269,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
     DynamicFlawInfo:
       type: object
       properties:
@@ -281,17 +283,18 @@ components:
               type: string
         exploit_evidence:
           type: string
-    PageInfo:
+    FindingsPage:
       type: object
       properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
+        _embedded:
+          type: object
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Finding'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     Annotation:
       type: object
       properties:
@@ -309,20 +312,17 @@ components:
         modified:
           type: string
           format: date-time
-    StaticFlawInfo:
+    PageInfo:
       type: object
       properties:
-        data_paths:
-          type: array
-          items:
-            type: object
-            properties:
-              file_path:
-                type: string
-              line_number:
-                type: integer
-              file_name:
-                type: string
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials

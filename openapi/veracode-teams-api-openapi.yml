@@ -120,38 +120,6 @@ components:
           properties:
             name:
               type: string
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    TeamsPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            teams:
-              type: array
-              items:
-                $ref: '#/components/schemas/Team'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
     Team:
       type: object
       properties:
@@ -167,6 +135,38 @@ components:
         modified:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    TeamsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            teams:
+              type: array
+              items:
+                $ref: '#/components/schemas/Team'
+        page:
+          $ref: '#/components/schemas/PageInfo'
   responses:
     Unauthorized:
       description: Missing or invalid HMAC credentials
