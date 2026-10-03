@@ -61,27 +61,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    SandboxesPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            sandboxes:
-              type: array
-              items:
-                $ref: '#/components/schemas/Sandbox'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
     SandboxProfile:
       type: object
       properties:
@@ -120,6 +99,27 @@ components:
           type: array
           items:
             type: object
+    SandboxesPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            sandboxes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sandbox'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     PageInfo:
       type: object
       properties:
@@ -132,14 +132,14 @@ components:
         number:
           type: integer
   responses:
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
       content:
         application/json:
           schema:

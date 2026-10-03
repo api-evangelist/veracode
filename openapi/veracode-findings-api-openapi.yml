@@ -186,29 +186,23 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    StaticFlawInfo:
+    Annotation:
       type: object
       properties:
-        data_paths:
-          type: array
-          items:
-            type: object
-            properties:
-              file_path:
-                type: string
-              line_number:
-                type: integer
-              file_name:
-                type: string
-    Error:
-      type: object
-      properties:
-        _status:
+        action:
           type: string
-        message:
+          enum:
+          - APPROVED
+          - REJECTED
+          - COMMENT
+        comment:
           type: string
-        http_code:
-          type: integer
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
     Finding:
       type: object
       properties:
@@ -269,6 +263,52 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    FindingsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Finding'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    StaticFlawInfo:
+      type: object
+      properties:
+        data_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              line_number:
+                type: integer
+              file_name:
+                type: string
     DynamicFlawInfo:
       type: object
       properties:
@@ -283,55 +323,15 @@ components:
               type: string
         exploit_evidence:
           type: string
-    FindingsPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            findings:
-              type: array
-              items:
-                $ref: '#/components/schemas/Finding'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    Annotation:
-      type: object
-      properties:
-        action:
-          type: string
-          enum:
-          - APPROVED
-          - REJECTED
-          - COMMENT
-        comment:
-          type: string
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
   responses:
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
       content:
         application/json:
           schema:

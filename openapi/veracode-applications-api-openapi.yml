@@ -165,65 +165,32 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ApplicationsPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            applications:
-              type: array
-              items:
-                $ref: '#/components/schemas/Application'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    ScanSummary:
-      type: object
-      properties:
-        scan_type:
-          type: string
-          enum:
-          - STATIC
-          - DYNAMIC
-          - MANUAL
-          - SCA
-        status:
-          type: string
-        date:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    Application:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-          description: Application unique identifier
-        profile:
-          $ref: '#/components/schemas/ApplicationProfile'
-        scans:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScanSummary'
-        last_completed_scan_date:
-          type: string
-          format: date-time
-        created:
-          type: string
-          format: date-time
-        modified:
-          type: string
-          format: date-time
     ApplicationProfile:
       type: object
       required:
@@ -261,6 +228,27 @@ components:
               properties:
                 name:
                   type: string
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
+    ApplicationsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            applications:
+              type: array
+              items:
+                $ref: '#/components/schemas/Application'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     PageInfo:
       type: object
       properties:
@@ -272,31 +260,43 @@ components:
           type: integer
         number:
           type: integer
-  responses:
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ScanSummary:
+      type: object
+      properties:
+        scan_type:
+          type: string
+          enum:
+          - STATIC
+          - DYNAMIC
+          - MANUAL
+          - SCA
+        status:
+          type: string
+        date:
+          type: string
+          format: date-time
+    Application:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          description: Application unique identifier
+        profile:
+          $ref: '#/components/schemas/ApplicationProfile'
+        scans:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanSummary'
+        last_completed_scan_date:
+          type: string
+          format: date-time
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
   parameters:
     ApplicationGuid:
       name: applicationGuid
