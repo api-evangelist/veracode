@@ -254,6 +254,9 @@ apis:
   - type: Documentation
     url: https://docs.veracode.com/r/Reporting_REST_API
 common:
+- type: CapabilityMap
+  url: capabilities/veracode-capability-edges.yml
+  name: Veracode Business Capability Map
 - type: AgenticAccess
   url: agentic-access/veracode-agentic-access.yml
 - type: TrustCenter

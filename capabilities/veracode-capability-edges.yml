@@ -1,0 +1,58 @@
+slug: veracode
+provider: Veracode
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Findings
+  spec_file: veracode-findings-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: '"retrieves security findings from static analysis (SAST), dynamic analysis (DAST), manual
+    penetration testing (MPT), and software composition analysis (SCA) scans. Supports filtering by CWE,
+    severity, ... CVSS score"'
+  reason: Retrieval of security flaws with CWE/CVSS severity and remediation annotation is vulnerability
+    identification and tracking. Vulnerability Management is the plain reading; small residual chance
+    a grader prefers software defect management.
+- tag: Users
+  spec_file: veracode-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: 'POST /api/authn/v2/users  createUser; DELETE /api/authn/v2/users/{userId}  deleteUser; description:
+    ''full CRUD operations for organizational identity and access management'''
+  reason: Full user lifecycle CRUD within an authentication/identity API — joiner-mover-leaver style account
+    administration, which is identity & access management.
+- tag: Manual Penetration Testing
+  spec_file: veracode-manual-penetration-testing-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.78
+  evidence: '"List Manual Penetration Test Scans", "List Manual Penetration Test Findings"'
+  reason: Pen-test scan and finding retrieval is security weakness discovery and remediation tracking,
+    i.e. Vulnerability Management. Slight ambiguity against security assurance/testing framing keeps confidence
+    below 0.8.
+- tag: Roles
+  spec_file: veracode-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: The Veracode Identity REST API manages users, API service accounts, teams, business units,
+    roles, and API credentials; GET /api/authn/v2/roles  listRoles
+  reason: Role enumeration within an identity API that manages users, roles and credentials — role-based
+    access administration, i.e. identity & access management. Read-only single operation keeps confidence
+    moderate.
