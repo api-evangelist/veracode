@@ -1,14 +1,12 @@
 aid: veracode
-
 name: Veracode
-
-description: Veracode is an application security testing (AST) platform offering static analysis (SAST), dynamic analysis (DAST), software composition
-  analysis (SCA), manual penetration testing, and developer security training. The Veracode Platform provides a comprehensive suite of REST APIs
-  enabling organizations to automate security testing, access findings, manage policies, generate reports, and administer users and teams. All
-  REST APIs use HMAC authentication with API ID/key credentials and return JSON responses following OpenAPI standards.
-
+description: Veracode is an application security testing (AST) platform offering static analysis (SAST),
+  dynamic analysis (DAST), software composition analysis (SCA), manual penetration testing, and developer
+  security training. The Veracode Platform provides a comprehensive suite of REST APIs enabling organizations
+  to automate security testing, access findings, manage policies, generate reports, and administer users
+  and teams. All REST APIs use HMAC authentication with API ID/key credentials and return JSON responses
+  following OpenAPI standards.
 type: Index
-
 deliveryModel:
   model: unknown
   open_source: false
@@ -20,7 +18,6 @@ deliveryModel:
   - openapi
   generated: '2026-08-28'
   method: derived
-
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -34,13 +31,9 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-
 position: Consuming
-
 access: 3rd-Party
-
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/veracode.png
-
 tags:
 - Application Security
 - SAST
@@ -48,19 +41,13 @@ tags:
 - SCA
 - Security Testing
 - DevSecOps
-
 created: '2025-01-08'
-
 modified: '2026-05-19'
-
 url: https://raw.githubusercontent.com/api-evangelist/veracode/refs/heads/main/apis.yml
-
 specificationVersion: '0.23'
-
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-
 common:
 - type: FinOps
   url: finops/veracode-finops.yml
@@ -146,7 +133,9 @@ common:
   url: https://www.veracode.com/blog
 - type: Support
   url: https://community.veracode.com/
-
+- type: CapabilityMap
+  url: capabilities/veracode-capability-edges.yml
+  name: Veracode Business Capability Map
 apis:
 - aid: veracode:veracode-api-credentials-api
   name: Veracode API Credentials API
