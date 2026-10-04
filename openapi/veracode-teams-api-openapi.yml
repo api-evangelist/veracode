@@ -109,7 +109,30 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    TeamProfile:
+      type: object
+      properties:
+        team_name:
+          type: string
+        relationship:
+          type: object
+          properties:
+            name:
+              type: string
     Team:
       type: object
       properties:
@@ -125,6 +148,15 @@ components:
         modified:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     TeamsPage:
       type: object
       properties:
@@ -137,25 +169,6 @@ components:
                 $ref: '#/components/schemas/Team'
         page:
           $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    TeamProfile:
-      type: object
-      properties:
-        team_name:
-          type: string
-        relationship:
-          type: object
-          properties:
-            name:
-              type: string
     PageInfo:
       type: object
       properties:
@@ -167,19 +180,6 @@ components:
           type: integer
         number:
           type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     TeamId:
       name: teamId

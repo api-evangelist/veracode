@@ -1,0 +1,50 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/veracode-applications-api-openapi.yml
+- openapi/veracode-business-units-api-openapi.yml
+- openapi/veracode-findings-api-openapi.yml
+- openapi/veracode-manual-penetration-testing-api-openapi.yml
+- openapi/veracode-policy-evaluations-api-openapi.yml
+- openapi/veracode-reports-api-openapi.yml
+- openapi/veracode-roles-api-openapi.yml
+- openapi/veracode-sandboxes-api-openapi.yml
+- openapi/veracode-teams-api-openapi.yml
+- openapi/veracode-users-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 29
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid request body or parameters
+  operations: 3
+  media_types:
+  - application/json
+  schema: Error
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid HMAC credentials
+  operations: 29
+  media_types:
+  - application/json
+  schema: Error
+- status: 403
+  title: Forbidden
+  description: Insufficient permissions
+  operations: 2
+  media_types:
+  - application/json
+  schema: Error
+- status: 404
+  title: Not Found
+  description: Resource not found
+  operations: 13
+  media_types:
+  - application/json
+  schema: Error

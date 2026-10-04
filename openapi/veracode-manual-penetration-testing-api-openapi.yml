@@ -57,6 +57,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Annotation:
       type: object
@@ -75,6 +88,61 @@ components:
         modified:
           type: string
           format: date-time
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    MptScansPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            scans:
+              type: array
+              items:
+                type: object
+                properties:
+                  scan_id:
+                    type: string
+                  status:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date-time
+                  end_date:
+                    type: string
+                    format: date-time
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    FindingsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Finding'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     Finding:
       type: object
       properties:
@@ -135,74 +203,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
-    MptScansPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            scans:
-              type: array
-              items:
-                type: object
-                properties:
-                  scan_id:
-                    type: string
-                  status:
-                    type: string
-                  start_date:
-                    type: string
-                    format: date-time
-                  end_date:
-                    type: string
-                    format: date-time
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    FindingsPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            findings:
-              type: array
-              items:
-                $ref: '#/components/schemas/Finding'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     HmacAuth:
       type: http

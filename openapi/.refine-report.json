@@ -28,10 +28,9 @@
     "veracode-findings-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "veracode-identity-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "veracode-reporting-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "apis.yml register: written (+1 apis, 12 total)"
   ],
   "skipped": [
-    "veracode-api-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "veracode-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "veracode-business-units-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "veracode-findings-api-openapi.yml: previously refined output, superseded by openapi/_original/",

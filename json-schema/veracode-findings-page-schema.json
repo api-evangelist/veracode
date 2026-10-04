@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-findings-page-schema.json",
+  "title": "FindingsPage",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-findings-api-openapi.yml#/components/schemas/FindingsPage",
+  "type": "object",
+  "properties": {
+    "_embedded": {
+      "type": "object",
+      "properties": {
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Finding"
+          }
+        }
+      }
+    },
+    "page": {
+      "$ref": "#/$defs/PageInfo"
+    }
+  },
+  "$defs": {
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "APPROVED",
+            "REJECTED",
+            "COMMENT"
+          ]
+        },
+        "comment": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Finding": {
+      "type": "object",
+      "properties": {
+        "issue_id": {
+          "type": "integer",
+          "description": "Unique issue ID"
+        },
+        "scan_type": {
+          "type": "string",
+          "enum": [
+            "STATIC",
+            "DYNAMIC",
+            "MANUAL",
+            "SCA"
+          ],
+          "description": "Type of scan that identified this finding"
+        },
+        "severity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Severity level (0=Informational to 5=Very High)"
+        },
+        "cwe": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "href": {
+              "type": "string"
+            }
+          }
+        },
+        "finding_status": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "OPEN",
+                "CLOSED",
+                "MITIGATED"
+              ]
+            },
+            "new": {
+              "type": "boolean"
+            },
+            "mitigation_review_status": {
+              "type": "string"
+            },
+            "first_found_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_seen_date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "violates_policy": {
+          "type": "boolean",
+          "description": "Whether this finding violates the applied policy"
+        },
+        "cvss": {
+          "type": "number",
+          "description": "CVSS score"
+        },
+        "finding_details": {
+          "type": "object",
+          "description": "Scan-type-specific details"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Annotation"
+          }
+        }
+      }
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "total_elements": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

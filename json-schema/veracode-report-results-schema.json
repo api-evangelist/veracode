@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-report-results-schema.json",
+  "title": "ReportResults",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-reports-api-openapi.yml#/components/schemas/ReportResults",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "_embedded": {
+      "type": "object",
+      "description": "Report data depending on report type",
+      "properties": {
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReportFinding"
+          }
+        },
+        "scans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReportScan"
+          }
+        }
+      }
+    },
+    "page": {
+      "$ref": "#/$defs/PageInfo"
+    }
+  },
+  "$defs": {
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "total_elements": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "integer"
+        }
+      }
+    },
+    "ReportFinding": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "app_name": {
+          "type": "string"
+        },
+        "issue_id": {
+          "type": "integer"
+        },
+        "scan_type": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "integer"
+        },
+        "cwe_id": {
+          "type": "integer"
+        },
+        "cwe_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "violates_policy": {
+          "type": "boolean"
+        },
+        "first_found_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_seen_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ReportScan": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "app_name": {
+          "type": "string"
+        },
+        "scan_type": {
+          "type": "string"
+        },
+        "scan_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "policy_compliance": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

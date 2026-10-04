@@ -78,29 +78,73 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Report not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ReportInitiated:
+    PageInfo:
       type: object
       properties:
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to poll for report results
-        report_id:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    ReportFinding:
+      type: object
+      properties:
+        app_id:
           type: string
-          description: Unique identifier for this report generation request
+        app_name:
+          type: string
+        issue_id:
+          type: integer
+        scan_type:
+          type: string
+        severity:
+          type: integer
+        cwe_id:
+          type: integer
+        cwe_name:
+          type: string
         status:
           type: string
-          enum:
-          - REQUESTED
-          - PROCESSING
-          - COMPLETED
-          - FAILED
+        violates_policy:
+          type: boolean
+        first_found_date:
+          type: string
+          format: date-time
+        last_seen_date:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     ReportScan:
       type: object
       properties:
@@ -141,6 +185,28 @@ components:
                 $ref: '#/components/schemas/ReportScan'
         page:
           $ref: '#/components/schemas/PageInfo'
+    ReportInitiated:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to poll for report results
+        report_id:
+          type: string
+          description: Unique identifier for this report generation request
+        status:
+          type: string
+          enum:
+          - REQUESTED
+          - PROCESSING
+          - COMPLETED
+          - FAILED
     ReportRequest:
       type: object
       required:
@@ -205,72 +271,6 @@ components:
           - 'yes'
           - 'no'
           description: Filter by policy rule pass status
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
-    ReportFinding:
-      type: object
-      properties:
-        app_id:
-          type: string
-        app_name:
-          type: string
-        issue_id:
-          type: integer
-        scan_type:
-          type: string
-        severity:
-          type: integer
-        cwe_id:
-          type: integer
-        cwe_name:
-          type: string
-        status:
-          type: string
-        violates_policy:
-          type: boolean
-        first_found_date:
-          type: string
-          format: date-time
-        last_seen_date:
-          type: string
-          format: date-time
-  responses:
-    BadRequest:
-      description: Invalid request body or parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Report not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     HmacAuth:
       type: http

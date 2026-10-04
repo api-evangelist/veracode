@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-business-units-page-schema.json",
+  "title": "BusinessUnitsPage",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-business-units-api-openapi.yml#/components/schemas/BusinessUnitsPage",
+  "type": "object",
+  "properties": {
+    "_embedded": {
+      "type": "object",
+      "properties": {
+        "business_units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BusinessUnit"
+          }
+        }
+      }
+    },
+    "page": {
+      "$ref": "#/$defs/PageInfo"
+    }
+  },
+  "$defs": {
+    "BusinessUnit": {
+      "type": "object",
+      "properties": {
+        "bu_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "total_elements": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

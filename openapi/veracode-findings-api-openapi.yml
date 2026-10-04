@@ -185,6 +185,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Annotation:
       type: object
@@ -203,6 +216,66 @@ components:
         modified:
           type: string
           format: date-time
+    DynamicFlawInfo:
+      type: object
+      properties:
+        url:
+          type: string
+        http_transaction:
+          type: object
+          properties:
+            request:
+              type: string
+            response:
+              type: string
+        exploit_evidence:
+          type: string
+    PageInfo:
+      type: object
+      properties:
+        total_elements:
+          type: integer
+        total_pages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+    StaticFlawInfo:
+      type: object
+      properties:
+        data_paths:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              line_number:
+                type: integer
+              file_name:
+                type: string
+    FindingsPage:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            findings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Finding'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     Finding:
       type: object
       properties:
@@ -263,79 +336,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Annotation'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    FindingsPage:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            findings:
-              type: array
-              items:
-                $ref: '#/components/schemas/Finding'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        total_elements:
-          type: integer
-        total_pages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
-    StaticFlawInfo:
-      type: object
-      properties:
-        data_paths:
-          type: array
-          items:
-            type: object
-            properties:
-              file_path:
-                type: string
-              line_number:
-                type: integer
-              file_name:
-                type: string
-    DynamicFlawInfo:
-      type: object
-      properties:
-        url:
-          type: string
-        http_transaction:
-          type: object
-          properties:
-            request:
-              type: string
-            response:
-              type: string
-        exploit_evidence:
-          type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     HmacAuth:
       type: http

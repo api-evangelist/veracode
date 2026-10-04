@@ -60,25 +60,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid HMAC credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    SandboxProfile:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Sandbox name
-        auto_recreate:
-          type: boolean
-          default: false
-        custom_fields:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
     Sandbox:
       type: object
       properties:
@@ -99,6 +94,33 @@ components:
           type: array
           items:
             type: object
+    SandboxProfile:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Sandbox name
+        auto_recreate:
+          type: boolean
+          default: false
+        custom_fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
     SandboxesPage:
       type: object
       properties:
@@ -111,15 +133,6 @@ components:
                 $ref: '#/components/schemas/Sandbox'
         page:
           $ref: '#/components/schemas/PageInfo'
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
     PageInfo:
       type: object
       properties:
@@ -131,19 +144,6 @@ components:
           type: integer
         number:
           type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid HMAC credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     ApplicationGuid:
       name: applicationGuid

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-application-profile-schema.json",
+  "title": "ApplicationProfile",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-applications-api-openapi.yml#/components/schemas/ApplicationProfile",
+  "type": "object",
+  "required": [
+    "profile"
+  ],
+  "properties": {
+    "profile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Application name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Application description"
+        },
+        "business_criticality": {
+          "type": "string",
+          "enum": [
+            "VERY_HIGH",
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "VERY_LOW"
+          ],
+          "description": "Business criticality level"
+        },
+        "policy": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Policy name to apply"
+            }
+          }
+        },
+        "tags": {
+          "type": "string",
+          "description": "Comma-separated application tags"
+        },
+        "business_unit": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

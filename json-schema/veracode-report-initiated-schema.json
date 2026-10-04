@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-report-initiated-schema.json",
+  "title": "ReportInitiated",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-reports-api-openapi.yml#/components/schemas/ReportInitiated",
+  "type": "object",
+  "properties": {
+    "_links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string",
+              "description": "URL to poll for report results"
+            }
+          }
+        }
+      }
+    },
+    "report_id": {
+      "type": "string",
+      "description": "Unique identifier for this report generation request"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    }
+  }
+}

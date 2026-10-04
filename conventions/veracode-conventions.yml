@@ -1,0 +1,24 @@
+generated: '2026-10-03'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.veracode.com/r/Getting_Started_with_Veracode
+sources:
+- https://docs.veracode.com/r/Getting_Started_with_Veracode
+- https://docs.veracode.com/r/REST_APIs_Quickstart
+- https://docs.veracode.com/r/API_authentication
+- https://docs.veracode.com/r/API_authentication#using-the-rest-apis
+idempotency:
+  coverage: none
+  evidence: The documentation does not describe any idempotency key or header for write operations.
+pagination:
+  style: page/size query parameters
+  params:
+  - page
+  - size
+  response_fields:
+  - _links.self.href
+  - _links.sandboxes.href (templated)
+  evidence: The Applications API includes a templated link with `{?page,size}` indicating pagination via `page` and `size` query parameters.
+versioning: Version is encoded in the URL path (e.g., `/appsec/v1/...`).
+authentication: HMAC signing using API ID and secret key pair (OAuth client credentials are mentioned but not supported for the REST APIs).
+docs: https://docs.veracode.com/r/Getting_Started_with_Veracode

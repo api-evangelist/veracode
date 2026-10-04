@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-report-request-schema.json",
+  "title": "ReportRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-reports-api-openapi.yml#/components/schemas/ReportRequest",
+  "type": "object",
+  "required": [
+    "report_type"
+  ],
+  "properties": {
+    "report_type": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "FINDINGS",
+          "SCANS",
+          "DELETEDSCANS",
+          "AUDIT"
+        ]
+      },
+      "description": "Types of data to include in the report"
+    },
+    "app_id": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Application IDs to include (empty = all applications)"
+    },
+    "scan_type": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "STATIC",
+          "DYNAMIC",
+          "MANUAL",
+          "SCA"
+        ]
+      },
+      "description": "Filter by scan type"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "closed",
+        "mitigated"
+      ],
+      "description": "Filter findings by status"
+    },
+    "severity": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5
+      },
+      "description": "Filter by severity levels"
+    },
+    "last_updated_start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start date for date range filter"
+    },
+    "last_updated_end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End date for date range filter"
+    },
+    "policy_sandbox": {
+      "type": "string",
+      "enum": [
+        "Policy",
+        "Sandbox"
+      ],
+      "description": "Filter by policy or sandbox scans"
+    },
+    "policy_rule_passed": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no"
+      ],
+      "description": "Filter by policy rule pass status"
+    }
+  }
+}

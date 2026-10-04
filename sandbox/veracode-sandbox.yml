@@ -1,0 +1,27 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.veracode.com/r/c_about_sandbox
+sources:
+- https://docs.veracode.com/r/c_about_sandbox
+- https://docs.veracode.com/r/c_rest_sandbox_intro
+- https://docs.veracode.com/r/c_sandbox_api
+- https://docs.veracode.com/r/c_sandbox_create_rest
+description: Veracode provides a Development Sandbox feature that can be accessed via REST and XML APIs. The sandbox is a non‑production environment
+  for scanning code.
+modes:
+- name: Development Sandbox (REST API)
+  base_url: https://api.veracode.com/appsec/v1
+  how_to_get_access: Requires an API user account with the Results API role, or a user account with the Sandbox Administrator or Sandbox User
+    role. Authentication uses Veracode HMAC (secure authentication).
+- name: Development Sandbox (XML API)
+  base_url: https://analysiscenter.veracode.com/api/5.0
+  how_to_get_access: Requires a UI user account with the Creator, Security Lead, or Sandbox Administrator role, or an API user account with the
+    Upload and Scan API role. Authentication uses Veracode secure authentication.
+note: The documentation does not publish any test‑mode key prefixes, test cards, accounts, tokens, amounts, or other fixture values. No time‑simulation
+  or clock‑control features are described.
+docs:
+- https://docs.veracode.com/r/c_about_sandbox
+- https://docs.veracode.com/r/c_rest_sandbox_intro
+- https://docs.veracode.com/r/c_sandbox_api
+- https://docs.veracode.com/r/c_sandbox_create_rest

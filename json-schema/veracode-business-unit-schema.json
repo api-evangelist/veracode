@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/veracode/main/json-schema/veracode-business-unit-schema.json",
+  "title": "BusinessUnit",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/veracode-business-units-api-openapi.yml#/components/schemas/BusinessUnit",
+  "type": "object",
+  "properties": {
+    "bu_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

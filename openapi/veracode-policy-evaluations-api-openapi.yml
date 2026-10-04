@@ -37,37 +37,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        _status:
-          type: string
-        message:
-          type: string
-        http_code:
-          type: integer
-    PolicyCompliance:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-        policy_compliance_status:
-          type: string
-          enum:
-          - PASSED
-          - DID_NOT_PASS
-          - CONDITIONAL_PASS
-          - NOT_ASSESSED
-          - CALCULATING
-        last_policy_compliance_check_date:
-          type: string
-          format: date-time
-        policy_name:
-          type: string
-        teams_passed:
-          type: boolean
   responses:
     NotFound:
       description: Resource not found
@@ -90,6 +59,37 @@ components:
       schema:
         type: string
         format: uuid
+  schemas:
+    PolicyCompliance:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        policy_compliance_status:
+          type: string
+          enum:
+          - PASSED
+          - DID_NOT_PASS
+          - CONDITIONAL_PASS
+          - NOT_ASSESSED
+          - CALCULATING
+        last_policy_compliance_check_date:
+          type: string
+          format: date-time
+        policy_name:
+          type: string
+        teams_passed:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        _status:
+          type: string
+        message:
+          type: string
+        http_code:
+          type: integer
   securitySchemes:
     HmacAuth:
       type: http

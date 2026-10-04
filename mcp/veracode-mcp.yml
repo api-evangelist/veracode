@@ -1,0 +1,169 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/veracode-applications-api-openapi.yml
+- openapi/veracode-business-units-api-openapi.yml
+- openapi/veracode-findings-api-openapi.yml
+- openapi/veracode-manual-penetration-testing-api-openapi.yml
+- openapi/veracode-policy-evaluations-api-openapi.yml
+- openapi/veracode-reports-api-openapi.yml
+- openapi/veracode-roles-api-openapi.yml
+- openapi/veracode-sandboxes-api-openapi.yml
+- openapi/veracode-teams-api-openapi.yml
+- openapi/veracode-users-api-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: probed
+note: 'No MCP server was found. The pre-flight posted tools/list to /mcp on api.veracode.com, docs.veracode.com, www.veracode.com, community.veracode.com;
+  verdict opaque (https://api.veracode.com/mcp answered 401: the edge authenticates before it routes, which proves nothing either way). Candidate
+  tools below are derived from the 29 operation(s) in the provider''s own OpenAPI (29 listed); they describe what a server WOULD expose, not one
+  that exists.'
+tools:
+- name: list_applications
+  operationId: listApplications
+  method: GET
+  path: /appsec/v1/applications
+  description: List Applications
+- name: list_business_units
+  operationId: listBusinessUnits
+  method: GET
+  path: /api/authn/v2/business_units
+  description: List Business Units
+- name: list_findings
+  operationId: listFindings
+  method: GET
+  path: /appsec/v2/applications/{applicationGuid}/findings
+  description: List Findings
+- name: list_mpt_scans
+  operationId: listMptScans
+  method: GET
+  path: /appsec/v2/applications/mpt/v1/scans
+  description: List Manual Penetration Test Scans
+- name: get_application_policy_compliance
+  operationId: getApplicationPolicyCompliance
+  method: GET
+  path: /appsec/v1/applications/{applicationGuid}/policy_compliance
+  description: Get Application Policy Compliance
+- name: generate_report
+  operationId: generateReport
+  method: POST
+  path: /appsec/v1/analytics/report
+  description: Generate Report
+- name: list_roles
+  operationId: listRoles
+  method: GET
+  path: /api/authn/v2/roles
+  description: List Roles
+- name: list_sandboxes
+  operationId: listSandboxes
+  method: GET
+  path: /appsec/v1/applications/{applicationGuid}/sandboxes
+  description: List Sandboxes
+- name: list_teams
+  operationId: listTeams
+  method: GET
+  path: /api/authn/v2/teams
+  description: List Teams
+- name: list_users
+  operationId: listUsers
+  method: GET
+  path: /api/authn/v2/users
+  description: List Users
+- name: create_application
+  operationId: createApplication
+  method: POST
+  path: /appsec/v1/applications
+  description: Create Application
+- name: create_business_unit
+  operationId: createBusinessUnit
+  method: POST
+  path: /api/authn/v2/business_units
+  description: Create Business Unit
+- name: get_dynamic_flaw_info
+  operationId: getDynamicFlawInfo
+  method: GET
+  path: /appsec/v2/applications/{applicationGuid}/findings/{issueId}/dynamic_flaw_info
+  description: Get Dynamic Flaw Info
+- name: list_mpt_scan_findings
+  operationId: listMptScanFindings
+  method: GET
+  path: /appsec/v2/applications/mpt/v1/scans/{scanId}/findings
+  description: List Manual Penetration Test Findings
+- name: get_report
+  operationId: getReport
+  method: GET
+  path: /appsec/v1/analytics/report/{reportId}
+  description: Get Report
+- name: create_sandbox
+  operationId: createSandbox
+  method: POST
+  path: /appsec/v1/applications/{applicationGuid}/sandboxes
+  description: Create Sandbox
+- name: create_team
+  operationId: createTeam
+  method: POST
+  path: /api/authn/v2/teams
+  description: Create Team
+- name: create_user
+  operationId: createUser
+  method: POST
+  path: /api/authn/v2/users
+  description: Create User
+- name: get_application
+  operationId: getApplication
+  method: GET
+  path: /appsec/v1/applications/{applicationGuid}
+  description: Get Application
+- name: get_static_flaw_info
+  operationId: getStaticFlawInfo
+  method: GET
+  path: /appsec/v2/applications/{applicationGuid}/findings/{findingId}/static_flaw_info
+  description: Get Static Flaw Info
+- name: get_team
+  operationId: getTeam
+  method: GET
+  path: /api/authn/v2/teams/{teamId}
+  description: Get Team
+- name: search_users
+  operationId: searchUsers
+  method: GET
+  path: /api/authn/v2/users/search
+  description: Search Users
+- name: update_application
+  operationId: updateApplication
+  method: PUT
+  path: /appsec/v1/applications/{applicationGuid}
+  description: Update Application
+- name: update_team
+  operationId: updateTeam
+  method: PUT
+  path: /api/authn/v2/teams/{teamId}
+  description: Update Team
+- name: get_current_user
+  operationId: getCurrentUser
+  method: GET
+  path: /api/authn/v2/users/self
+  description: Get Current User
+- name: delete_application
+  operationId: deleteApplication
+  method: DELETE
+  path: /appsec/v1/applications/{applicationGuid}
+  description: Delete Application
+- name: delete_team
+  operationId: deleteTeam
+  method: DELETE
+  path: /api/authn/v2/teams/{teamId}
+  description: Delete Team
+- name: update_user
+  operationId: updateUser
+  method: PUT
+  path: /api/authn/v2/users/{userId}
+  description: Update User
+- name: delete_user
+  operationId: deleteUser
+  method: DELETE
+  path: /api/authn/v2/users/{userId}
+  description: Delete User

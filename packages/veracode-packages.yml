@@ -1,0 +1,16 @@
+generated: '2026-10-04'
+method: probed
+generator: harvest-packages.py
+source: registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org, api.nuget.org, packagist.org, crates.io)
+ownership_rule: 'official: true only when the registry metadata (homepage, repository, author, URLs) names the provider''s domain (agentic-access/veracode-agentic-access.yml,
+  authentication/veracode-authentication.yml, linkedin.com, security/veracode-domain-security.yml, security/veracode-trust-center.yml, security/veracode-vulnerability-disclosure.yml,
+  veracode.com) or its accepted GitHub org.'
+packages:
+- name: veracode
+  registry: rubygems
+  url: https://rubygems.org/gems/veracode
+  language: Ruby
+  official: true
+  version: 1.1.9
+  published: '2026-01-09'
+  evidence: metadata names veracode.com

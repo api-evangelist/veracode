@@ -1,0 +1,26 @@
+generated: '2026-10-03'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/veracode-applications-api-openapi.yml
+skills:
+- file: skills/veracode-reports-generate-and-fetch.md
+  name: veracode-reports-generate-and-fetch
+  api: openapi/veracode-reports-api-openapi.yml
+  operations:
+  - generateReport
+  - getReport
+- file: skills/veracode-manage-team.md
+  name: veracode-manage-team
+  api: openapi/veracode-teams-api-openapi.yml
+  operations:
+  - createTeam
+  - getTeam
+  - updateTeam
+  - deleteTeam
+  - listTeams
+- file: skills/veracode-list-and-create-business-units.md
+  name: veracode-list-and-create-business-units
+  api: openapi/veracode-business-units-api-openapi.yml
+  operations:
+  - listBusinessUnits
+  - createBusinessUnit
