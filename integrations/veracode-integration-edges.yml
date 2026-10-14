@@ -2,6 +2,11 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://aws.amazon.com/marketplace/
+- https://github.com/marketplace?type=actions
+- https://github.com/marketplace?type=apps
+- https://marketplace.atlassian.com/
+- https://marketplace.visualstudio.com/vscode
+- https://plugins.jetbrains.com/
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -20,3 +25,94 @@ edges:
   seller_name: Veracode
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: GitHub Marketplace (apps)
+  partner: github
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-apps
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/veracode-workflow-app
+  listing_count: 1
+  apps:
+  - Veracode Workflow App
+  publisher_name: Veracode
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/veracode-upload-and-scan
+  listing_count: 10
+  apps:
+  - Veracode Upload And Scan
+  - Veracode Static Analysis Pipeline Scan and SARIF import
+  - Veracode Dependency Scanning
+  - Veracode Pipeline-Scan
+  - Veracode DAST Essentials Action
+  publisher_name: Veracode
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Atlassian Marketplace
+  partner: atlassian
+  partner_match: aggregator
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.atlassian.com/vendors/1214353/veracode
+  listing_count: 2
+  apps:
+  - Veracode Integration for Jira Cloud
+  - Veracode Integration for Jira
+  publisher_name: Veracode
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: JetBrains Marketplace
+  partner: jetbrains
+  partner_match: aggregator
+  type: marketplace
+  marketplace: jetbrains
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://plugins.jetbrains.com/vendor/9c87f209-f72a-4080-ac87-b280161c29fb
+  listing_count: 1
+  apps:
+  - Veracode Scan
+  publisher_name: Veracode Publisher
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/Veracode
+  listing_count: 1
+  apps:
+  - Veracode Scan for VS Code
+  publisher_name: Veracode
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+source:
+- https://github.com/marketplace?type=actions
+- https://github.com/marketplace?type=apps
+- https://marketplace.atlassian.com/
+- https://marketplace.visualstudio.com/vscode
+- https://plugins.jetbrains.com/

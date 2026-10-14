@@ -15,3 +15,63 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: veracode-github-marketplace-apps
+  label: GitHub Marketplace (apps)
+  partner: github
+  partner_name: GitHub Marketplace (apps)
+  type: marketplace
+  marketplace: github-apps
+  channel: partner-built
+  evidence: https://github.com/marketplace/veracode-workflow-app
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: veracode-github-marketplace-actions
+  label: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_name: GitHub Marketplace (actions)
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  evidence: https://github.com/marketplace/actions/veracode-upload-and-scan
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: veracode-atlassian-marketplace
+  label: Atlassian Marketplace
+  partner: atlassian
+  partner_name: Atlassian Marketplace
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  evidence: https://marketplace.atlassian.com/vendors/1214353/veracode
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: veracode-jetbrains-marketplace
+  label: JetBrains Marketplace
+  partner: jetbrains
+  partner_name: JetBrains Marketplace
+  type: marketplace
+  marketplace: jetbrains
+  channel: partner-built
+  evidence: https://plugins.jetbrains.com/vendor/9c87f209-f72a-4080-ac87-b280161c29fb
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: veracode-visual-studio-code-marketplace
+  label: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_name: Visual Studio Code Marketplace
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  evidence: https://marketplace.visualstudio.com/publishers/Veracode
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
