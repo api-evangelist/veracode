@@ -3,8 +3,13 @@ method: searched
 checked:
 - https://api.nuget.org/v3
 - https://aws.amazon.com/marketplace/
+- https://cdn.winget.microsoft.com/cache
 - https://crates.io/api/v1
 - https://cyclonedx.org/tool-center/
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://github.com/marketplace?type=actions
 - https://github.com/marketplace?type=apps
 - https://govramp.org/program-participants
@@ -142,6 +147,64 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: addon
+- partner_name: CycloneDX (OWASP)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  category: SBOM standard (CycloneDX)
+  evidence: https://cyclonedx.org/tool-center/#toolCard-veracode
+  contract_reference:
+    register: CycloneDX Tool Center (cyclonedx.org/tool-center)
+    standard: CycloneDX (ECMA-424)
+    spec_file: null
+    role: cyclonedx-tool
+    registered_name: Veracode
+    tools:
+    - Veracode
+    website: https://www.veracode.com/
+    matched_domain: veracode.com
+    matched_by: domain
+    availability:
+    - SUBSCRIPTION
+    signal_note: 'participation only: a Tool Center listing means the publisher ships CycloneDX support; tools,
+      capabilities and their count are context, never read (breadth is not credit)'
+    detected_by: sweep-software-supply-chain.py
+    detected: '2026-10-18'
+  detected_by: sweep-software-supply-chain.py
+  first_seen: '2026-10-18'
+- partner_name: RubyGems
+  partner: rubygems
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Ruby)
+  evidence: https://rubygems.org/gems/veracode
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: veracode
+      version: 1.1.9
+      released: '2026-01-09'
+      released_field: version_created_at
+      lapsed: false
+      page: https://rubygems.org/gems/veracode
+      repo_leg: domain:veracode.com
+      publisher_leg: org:veracode
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 - partner_name: FedRAMP
   partner: null
   partner_match: register
@@ -215,64 +278,36 @@ edges:
       latest_authorization: '2023-04-16'
   detected_by: sweep-gov-cloud.py
   first_seen: '2026-10-15'
-- partner_name: CycloneDX (OWASP)
+- partner_name: winget (Windows Package Manager)
   partner: null
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  category: SBOM standard (CycloneDX)
-  evidence: https://cyclonedx.org/tool-center/#toolCard-veracode
-  contract_reference:
-    register: CycloneDX Tool Center (cyclonedx.org/tool-center)
-    standard: CycloneDX (ECMA-424)
-    spec_file: null
-    role: cyclonedx-tool
-    registered_name: Veracode
-    tools:
-    - Veracode
-    website: https://www.veracode.com/
-    matched_domain: veracode.com
-    matched_by: domain
-    availability:
-    - SUBSCRIPTION
-    signal_note: 'participation only: a Tool Center listing means the publisher ships CycloneDX support; tools,
-      capabilities and their count are context, never read (breadth is not credit)'
-    detected_by: sweep-software-supply-chain.py
-    detected: '2026-10-18'
-  detected_by: sweep-software-supply-chain.py
-  first_seen: '2026-10-18'
-- partner_name: RubyGems
-  partner: rubygems
-  partner_match: register
+  partner_match: null
   type: register
   direction: provider-built
-  category: official SDK (Ruby)
-  evidence: https://rubygems.org/gems/veracode
+  category: official CLI (winget (Windows Package Manager))
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/Veracode/CLI
   channel: package-registry
   relationship: distribution-channel
   contract_reference:
-    register: RubyGems (public registry JSON)
+    register: winget (Windows Package Manager) (public package index)
     spec_file: null
-    language: Ruby
     packages:
-    - name: veracode
-      version: 1.1.9
-      released: '2026-01-09'
-      released_field: version_created_at
+    - name: Veracode.CLI
+      kind: manifest
+      version: 2.53.0
+      released: '2026-10-13'
       lapsed: false
-      page: https://rubygems.org/gems/veracode
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/v/Veracode/CLI
+      cli: 'winget: Perform various actions for testing the security of your applications'
       repo_leg: domain:veracode.com
-      publisher_leg: org:veracode
+      publisher_leg: artifact-domain:veracode.com
       matched_by: domain
     current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  detected_by: sweep-official-sdks.py
-  first_seen: '2026-10-18'
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
 source:
 - https://github.com/marketplace?type=actions
 - https://github.com/marketplace?type=apps
